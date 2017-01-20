@@ -1,0 +1,24 @@
+<div>
+    <br>
+    <br>
+    <div class="container col-lg-4 col-lg-offset-4 jumbotron">
+        <form [formGroup]="loginForm">
+            <div>
+                <h2 class="col-lg-offset-5">Login</h2>
+                <br>
+                <label for="email">Email <sup style="color: red">*</sup></label>
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="example@abc.com">
+            </div>
+            <br>
+            <div>
+                <label for="password">Password <sup style="color: red">*</sup></label>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter Password">
+            </div>
+            <small style="color:red" *ngIf="(loginForm.controls.email.hasError('required')||loginForm.controls.password.errors)"><sup>*</sup> field is required!</small>
+            <br>
+            <br>
+            <button class="btn btn-primary" [disabled]="!loginForm.valid" [routerLink]="['dashboard']">Login</button> New User?
+            <button class="btn btn-primary" [routerLink]="['signup']">Register</button>
+        </form>
+    </div>
+</div>
