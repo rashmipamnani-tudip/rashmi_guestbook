@@ -57,4 +57,15 @@ export class RegisterComponent implements OnInit {
             }
         });
     }
+
+checkpass( pwd, cpwd)
+    {
+    if (pwd.value==cpwd.value){
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+    }
 }

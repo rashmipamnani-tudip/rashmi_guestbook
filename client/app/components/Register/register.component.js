@@ -55,6 +55,14 @@ var RegisterComponent = (function () {
             }
         });
     };
+    RegisterComponent.prototype.checkpass = function (pwd, cpwd) {
+        if (pwd.value == cpwd.value) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     return RegisterComponent;
 }());
 RegisterComponent = __decorate([

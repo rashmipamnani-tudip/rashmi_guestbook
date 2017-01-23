@@ -32,7 +32,7 @@
 
             <br>
             <br>
-            <button class="btn btn-primary" [disabled]="!registerForm.valid" (click)="onRegister($event, fname, lname, email, pwd, cpwd)">Register</button>
+            <button class="btn btn-primary" [disabled]="!registerForm.valid||!checkpass(pwd, cpwd)" (click)="onRegister($event, fname, lname, email, pwd, cpwd)">Register</button>
         </form>
     </div>
 </div>

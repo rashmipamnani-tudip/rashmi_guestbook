@@ -33,4 +33,12 @@ export class TodoService{
         return this._http.delete('/api/v1/todo/'+id)
             .map(res => res.json());
     }
+
+    hostedTodo(editdata){
+                var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post('/api/v1/host', JSON.stringify(editdata), {headers: headers})
+            .map(res => res.json());
+    }
+
 }

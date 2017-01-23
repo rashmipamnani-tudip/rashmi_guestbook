@@ -86,4 +86,14 @@ router.delete('/todo/:id', function(req, res, next) {
     });
 });
 
+router.post('/host', function(req, res, next) {
+    db.todos.find({ hmail: req.body.hmail }, function(err, todos) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(todos);
+        }
+    });
+});
+
 module.exports = router;

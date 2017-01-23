@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../services/todo.service';
 import { Todo } from '../Todo';
+import {Router,RouterModule} from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -11,15 +12,20 @@ import { Todo } from '../Todo';
 
 export class TodosComponent implements OnInit {
   todos: Todo[];
+  e_mail = localStorage.getItem("host_email");
 
-  constructor(private _todoService: TodoService) {
+  constructor(private _todoService: TodoService, private router:Router) {
 
   }
 
   ngOnInit() {
     
     this.todos = [];
-    this._todoService.getTodos()
+    
+    var check = {
+      hmail : this.e_mail
+    }
+    this._todoService.hostedTodo(check)
       .subscribe(todos => {
         this.todos = todos;
       });
@@ -33,7 +39,8 @@ export class TodosComponent implements OnInit {
       address: todoaddress.value,
       m_number: todonumber.value,
       in_time: todoin.value,
-      out_time: todoout.value
+      out_time: todoout.value,
+      hmail: this.e_mail
     };
 
     result = this._todoService.saveTodo(newTodo);
@@ -85,7 +92,12 @@ export class TodosComponent implements OnInit {
         })
     }
   }
+logout(){
 
+localStorage.removeItem("hmail");
+this.router.navigate(['']);
+
+}
   deleteTodo(todo) {
     var todos = this.todos;
 

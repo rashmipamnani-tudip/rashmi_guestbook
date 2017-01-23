@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
 var login_service_1 = require("../../services/login.service");
 var LoginComponent = (function () {
-    function LoginComponent(formBuilder, login_service) {
+    function LoginComponent(formBuilder, login_service, router) {
         this.formBuilder = formBuilder;
         this.login_service = login_service;
+        this.router = router;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this.formBuilder.group({
@@ -34,12 +36,15 @@ var LoginComponent = (function () {
         result.subscribe(function (x) {
             _this.users = x;
             if (_this.users == null) {
-                alert("Please enter correct data");
+                alert("User not registered or wrong password");
                 myemail.value = "";
                 mypass.value = "";
             }
             else {
                 console.log("User is logged in");
+                _this.router.navigate(['dashboard']);
+                localStorage.setItem('host_email', myuser.email);
+                console.log("email is : " + myuser.email);
             }
         });
     };
@@ -52,7 +57,7 @@ LoginComponent = __decorate([
         templateUrl: 'login.component.html',
         providers: [login_service_1.loginService]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.loginService])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.loginService, router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

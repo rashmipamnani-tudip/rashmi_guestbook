@@ -10,14 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var todo_service_1 = require("../services/todo.service");
+var router_1 = require("@angular/router");
 var TodosComponent = (function () {
-    function TodosComponent(_todoService) {
+    function TodosComponent(_todoService, router) {
         this._todoService = _todoService;
+        this.router = router;
+        this.e_mail = localStorage.getItem("host_email");
     }
     TodosComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.todos = [];
-        this._todoService.getTodos()
+        var check = {
+            hmail: this.e_mail
+        };
+        this._todoService.hostedTodo(check)
             .subscribe(function (todos) {
             _this.todos = todos;
         });
@@ -30,7 +36,8 @@ var TodosComponent = (function () {
             address: todoaddress.value,
             m_number: todonumber.value,
             in_time: todoin.value,
-            out_time: todoout.value
+            out_time: todoout.value,
+            hmail: this.e_mail
         };
         result = this._todoService.saveTodo(newTodo);
         result.subscribe(function (x) {
@@ -79,6 +86,10 @@ var TodosComponent = (function () {
             });
         }
     };
+    TodosComponent.prototype.logout = function () {
+        localStorage.removeItem("hmail");
+        this.router.navigate(['']);
+    };
     TodosComponent.prototype.deleteTodo = function (todo) {
         var todos = this.todos;
         this._todoService.deleteTodo(todo.id)
@@ -101,7 +112,7 @@ TodosComponent = __decorate([
         templateUrl: 'todos.component.html',
         providers: [todo_service_1.TodoService]
     }),
-    __metadata("design:paramtypes", [todo_service_1.TodoService])
+    __metadata("design:paramtypes", [todo_service_1.TodoService, router_1.Router])
 ], TodosComponent);
 exports.TodosComponent = TodosComponent;
 //# sourceMappingURL=todos.component.js.map
