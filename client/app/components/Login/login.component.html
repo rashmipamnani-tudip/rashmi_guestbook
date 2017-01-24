@@ -1,6 +1,8 @@
 <div>
     <br>
     <br>
+    <br>
+    <br>
     <div class="container col-lg-4 col-lg-offset-4 jumbotron">
         <form [formGroup]="loginForm">
             <div>
@@ -18,7 +20,7 @@
             <br>
             <br>
             <button class="btn btn-primary" (click)="onLogin($event, myemail, mypass)" [disabled]="!loginForm.valid">Login</button> New User?
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-primary" [routerLink]="['signup']">Register</button>
         </form>
     </div>
 </div>

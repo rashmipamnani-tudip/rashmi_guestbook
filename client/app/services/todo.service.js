@@ -32,7 +32,7 @@ var TodoService = (function () {
             .map(function (res) { return res.json(); });
     };
     TodoService.prototype.deleteTodo = function (id) {
-        return this._http.delete('/api/v1/todo/' + id)
+        return this._http.delete('/api/v1/delete/' + id)
             .map(function (res) { return res.json(); });
     };
     TodoService.prototype.hostedTodo = function (editdata) {

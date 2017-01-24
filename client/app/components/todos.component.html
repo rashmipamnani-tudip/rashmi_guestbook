@@ -63,7 +63,7 @@
                                 <td>{{todo.out_time}}</td>
                                 <td><input type="text" [class.hidden]="!todo.isEditMode" [value]="todo.text" (keypress)="updateTodoText($event, todo)"></td>
                                 <td><input type="button" [class.hidden]="!todo.isEditMode" value="Cancel" (click)="setEditState(todo, false)" class="btn btn-warning"></td>
-                                <td><input (click)="deleteTodo(todo.name)" type="button" class="btn btn-default pull-right" value="Delete"></td>
+                                <td><input (click)="deleteTodo(todo)" type="button" class="btn btn-default pull-right" value="Delete"></td>
                             </tr>
 
                         </table>

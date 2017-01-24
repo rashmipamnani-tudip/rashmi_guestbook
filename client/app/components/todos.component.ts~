@@ -96,17 +96,16 @@ logout(){
 
 localStorage.removeItem("hmail");
 this.router.navigate(['']);
-alert(" THANK YOU");
 
 }
   deleteTodo(todo) {
     var todos = this.todos;
 
-    this._todoService.deleteTodo(todo._id)
+    this._todoService.deleteTodo(todo.id)
       .subscribe(data => {
         if (data.n == 1) {
           for (var i = 0; i < todos.length; i++) {
-            if (todos[i]._id == todo._id) {
+            if (todos[i].name == todo.name) {
               todos.splice(i, 1);
             }
           }

@@ -89,14 +89,15 @@ var TodosComponent = (function () {
     TodosComponent.prototype.logout = function () {
         localStorage.removeItem("hmail");
         this.router.navigate(['']);
+        alert(" THANK YOU");
     };
     TodosComponent.prototype.deleteTodo = function (todo) {
         var todos = this.todos;
-        this._todoService.deleteTodo(todo.id)
+        this._todoService.deleteTodo(todo._id)
             .subscribe(function (data) {
             if (data.n == 1) {
                 for (var i = 0; i < todos.length; i++) {
-                    if (todos[i].name == todo.name) {
+                    if (todos[i]._id == todo._id) {
                         todos.splice(i, 1);
                     }
                 }

@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
             last_name: lname.value,
             email: email.value,
             pwd: pwd.value,
-            cpwd: cpwd.value
+           // cpwd: cpwd.value
         };
         console.log(recipt);
         var result = this.register_service.addUser(recipt);
