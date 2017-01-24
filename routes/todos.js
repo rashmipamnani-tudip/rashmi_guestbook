@@ -3,6 +3,13 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['todos']);
 
+//for showing dashboard page
+router.get('/', function(req, res, next) {
+    res.render('index.html');
+});
+
+
+
 // Get Todos
 router.get('/todos', function(req, res, next) {
     db.todos.find(function(err, todos) {
