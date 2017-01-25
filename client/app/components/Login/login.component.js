@@ -13,6 +13,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var login_service_1 = require("../../services/login.service");
 var LoginComponent = (function () {
+    //name = this.users.name;
     function LoginComponent(formBuilder, login_service, router) {
         this.formBuilder = formBuilder;
         this.login_service = login_service;
@@ -43,7 +44,9 @@ var LoginComponent = (function () {
             else {
                 console.log("User is logged in");
                 _this.router.navigate(['dashboard']);
-                localStorage.setItem('host_email', myuser.email);
+                //sessionStorage.setItem('',myuser.name);
+                sessionStorage.setItem('host_email', myuser.email);
+                sessionStorage.setItem('host_name', _this.users.first_name + " " + _this.users.last_name);
                 console.log("email is : " + myuser.email);
             }
         });

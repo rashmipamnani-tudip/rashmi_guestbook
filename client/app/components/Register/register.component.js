@@ -21,7 +21,7 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.ngOnInit = function () {
         this.registerForm = this.formBuilder.group({
             firstname: ['', forms_1.Validators.required],
-            lastname: ['', forms_1.Validators.required],
+            lastname: [''],
             email: ['', [forms_1.Validators.required, forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
             psword: ['', forms_1.Validators.required],
             repass: ['', forms_1.Validators.required]

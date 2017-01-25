@@ -33,7 +33,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-                        <div class="navbar-brand">WELCOME
+                        <div class="navbar-brand">WELCOME {{host_name}}
                             <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
                     </div>
                     <div id="navbar" class="collapse navbar-collapse">
@@ -82,6 +82,7 @@
                                             <th>Number</th>
                                             <th>In-time</th>
                                             <th>Out-time</th>
+                                            <th>Receptionists' Name</th>
                                         </tr>
                                         <tr *ngFor="let todo of todos ">
                                             <td>{{todo.name}}</td>
@@ -89,6 +90,8 @@
                                             <td>{{todo.number}}</td>
                                             <td>{{todo.in_time}}</td>
                                             <td>{{todo.out_time}}</td>
+                                            <td>{{todo.receptionist_name}}</td>
+
                                             <td><input type="text " [class.hidden]="!todo.isEditMode " [value]="todo.text " (keypress)="updateTodoText($event, todo) "></td>
                                             <td><input type="button " [class.hidden]="!todo.isEditMode " value="Cancel " (click)="setEditState(todo, false) " class="btn btn-warning "></td>
                                             <td><input (click)="deleteTodo(todo) " type="button " class="btn btn-default pull-right " value="Delete "></td>

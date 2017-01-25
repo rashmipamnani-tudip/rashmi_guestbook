@@ -12,11 +12,15 @@ router.get('/', function(req, res, next) {
 
 // Get Todos
 router.get('/todos', function(req, res, next) {
+    console.log("Hello");
     db.todos.find(function(err, todos) {
         if (err) {
+
+            console.log("error");
             res.send(err);
         } else {
             res.json(todos);
+            console.log("sending todos");
         }
     });
 });
@@ -94,13 +98,27 @@ router.delete('/delete/:id', function(req, res, next) {
 });
 
 router.post('/host', function(req, res, next) {
-    db.todos.find({ hmail: req.body.hmail }, function(err, todos) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(todos);
-        }
-    });
+    if (req.body.hmail == "admin@tudip.com") {
+        db.todos.find(function(err, todos) {
+            if (err) {
+
+                console.log("error");
+                res.send(err);
+            } else {
+                res.json(todos);
+                console.log("sending todos");
+            }
+        });
+    } else {
+
+        db.todos.find({ hmail: req.body.hmail }, function(err, todos) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(todos);
+            }
+        });
+    }
 });
 
 module.exports = router;

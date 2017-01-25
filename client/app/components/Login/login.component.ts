@@ -8,15 +8,15 @@ import { myuser } from './user'
   moduleId: module.id,
   selector: 'login-form',
   templateUrl: 'login.component.html',
-  providers:[loginService]
+  providers: [loginService]
 })
 
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   users: myuser[];
-
-  constructor(private formBuilder: FormBuilder, private login_service: loginService , private router: Router) { }
+  //name = this.users.name;
+  constructor(private formBuilder: FormBuilder, private login_service: loginService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -32,33 +32,40 @@ export class LoginComponent implements OnInit {
       email: myemail.value,
       password: mypass.value
     };
+  
+   result = this.login_service.verifyUser(myuser);
 
-    result = this.login_service.verifyUser(myuser);
 
-     result.subscribe(x => {
-          
-          this.users = x;
+    result.subscribe(x => {
 
-            if (this.users == null) {
-                alert("User not registered or wrong password");
-                myemail.value = "";
-                mypass.value = "";
-            }
-            else {
-              console.log("User is logged in");
-              this.router.navigate(['dashboard']);
-               localStorage.setItem('host_email', myuser.email);
-                console.log("email is : "+myuser.email);
-              /*
-                this.savedUser.users_logged = "" + loginUsers.text;
+      this.users = x;
+      
+      if (this.users == null) {
+        alert("User not registered or wrong password");
+        myemail.value = "";
+        mypass.value = "";
+      }
+      else {
+        console.log("User is logged in");
+        this.router.navigate(['dashboard']);
+        //sessionStorage.setItem('',myuser.name);
+        sessionStorage.setItem('host_email', myuser.email);
+        
+        sessionStorage.setItem('host_name',this.users.first_name +" "+ this.users.last_name);
+        console.log("email is : " + myuser.email);
+        
+        
+        
+        /*
+          this.savedUser.users_logged = "" + loginUsers.text;
 
-                localStorage.setItem('host_email', loginUsers.email);
-                localStorage.setItem('host_name',loginUsers.username);
+          localStorage.setItem('host_email', loginUsers.email);
+          localStorage.setItem('host_name',loginUsers.username);
 
-                console.log(""+loginUsers.email);*/
+          console.log(""+loginUsers.email);*/
 
-                
-            }
-      });
+
+      }
+    });
   }
 }

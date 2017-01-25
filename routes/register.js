@@ -10,6 +10,7 @@ router.get('/users', function(req, res, next) {
             res.send(err);
         } else {
             res.json(todos);
+            console.log("admin check");
         }
     });
 });
@@ -40,6 +41,7 @@ router.get('/user/:id', function(req, res, next) {
     });
 });
 
+// For login
 router.post('/find', function(req, res, next) {
     db.users.findOne({ email: req.body.email, pwd: req.body.password },
 

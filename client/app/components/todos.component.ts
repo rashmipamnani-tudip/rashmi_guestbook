@@ -14,19 +14,22 @@ import { Router, RouterModule } from '@angular/router'
 export class TodosComponent implements OnInit {
   todos: Todo[];
   dashForm: FormGroup;
-  e_mail = localStorage.getItem("host_email");
-
+  e_mail = sessionStorage.getItem("host_email");
+  host_name = sessionStorage.getItem('host_name');
   constructor(private _todoService: TodoService, private router: Router, private formbuilder: FormBuilder) {
 
   }
 
   ngOnInit() {
+
+
     this.dashForm = this.formbuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
       number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       in_time: ['', Validators.required],
-      out_time: ['', Validators.required]
+      out_time: ['', Validators.required],
+
     });
 
     this.todos = [];
@@ -49,7 +52,8 @@ export class TodosComponent implements OnInit {
       number: todonumber.value,
       in_time: todoin.value,
       out_time: todoout.value,
-      hmail: this.e_mail
+      hmail: this.e_mail,
+      receptionist_name: this.host_name
     };
 
     result = this._todoService.saveTodo(newTodo);
@@ -103,7 +107,7 @@ export class TodosComponent implements OnInit {
   }
   logout() {
 
-    localStorage.removeItem("hmail");
+    sessionStorage.removeItem("hmail");
     this.router.navigate(['']);
     alert(" THANK YOU");
 

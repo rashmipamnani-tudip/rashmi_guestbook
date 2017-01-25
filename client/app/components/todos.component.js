@@ -17,7 +17,8 @@ var TodosComponent = (function () {
         this._todoService = _todoService;
         this.router = router;
         this.formbuilder = formbuilder;
-        this.e_mail = localStorage.getItem("host_email");
+        this.e_mail = sessionStorage.getItem("host_email");
+        this.host_name = sessionStorage.getItem('host_name');
     }
     TodosComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -26,7 +27,7 @@ var TodosComponent = (function () {
             email: ['', [forms_1.Validators.required, forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
             number: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10), forms_1.Validators.maxLength(10)]],
             in_time: ['', forms_1.Validators.required],
-            out_time: ['', forms_1.Validators.required]
+            out_time: ['', forms_1.Validators.required],
         });
         this.todos = [];
         var check = {
@@ -46,7 +47,8 @@ var TodosComponent = (function () {
             number: todonumber.value,
             in_time: todoin.value,
             out_time: todoout.value,
-            hmail: this.e_mail
+            hmail: this.e_mail,
+            receptionist_name: this.host_name
         };
         result = this._todoService.saveTodo(newTodo);
         result.subscribe(function (x) {
@@ -96,7 +98,7 @@ var TodosComponent = (function () {
         }
     };
     TodosComponent.prototype.logout = function () {
-        localStorage.removeItem("hmail");
+        sessionStorage.removeItem("hmail");
         this.router.navigate(['']);
         alert(" THANK YOU");
     };
