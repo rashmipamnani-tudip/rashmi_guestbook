@@ -1,7 +1,7 @@
 export class Todo{
 name: string;
-address: string;
-m_number: string;
+email: string;
+number: number;
 in_time: string;
 out_time: string;
 }

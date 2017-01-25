@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var todos = require('./routes/todos');
-var dashboard = require('./routes/dashboard_display');
-var register = require('./routes/register_display')
+//var dashboard = require('./routes/dashboard_display');
+//var register = require('./routes/register_display')
 var users = require('./routes/register');
 
 var app = express();
@@ -22,8 +22,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', index);
-app.use('/', dashboard);
-app.use('/', register);
+
+app.use('/dashboard', function(req, res, next) {
+    res.render('index.html');
+});
+
+app.use('/signup', function(req, res, next) {
+    res.render('index.html');
+});
+
 app.use('/api/v1/', todos);
 app.use('/api/v1/', users);
 

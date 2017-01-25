@@ -1,84 +1,115 @@
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<html>
+
+<head>
+    <title>Atithi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">-->
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function(err) {
+            console.error(err);
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <div class="container col-lg-10 col-lg-offset-1 jumbotron">
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <div class="navbar-brand">WELCOME
-                <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+                        <div class="navbar-brand">WELCOME
+                            <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
 
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
-    </div>
-</nav>
-
-<div class="container">
-    <div class="row">
-
-
-        <div class="add-todo-form text-center">
-            <h1>Visitors Welcome</h1>
-            <div class="row">
-                <div class="form-group">
-
-                    <table>
-                        <tr>
-                            <td><input class="form-control input-lg" placeholder="Name" autofocus #todoname></td>
-                            <td><input class="form-control input-lg" placeholder="Address" autofocus #todoaddress></td>
-                            <td><input class="form-control input-lg" placeholder="Mobile number" autofocus #todonumber></td>
-                            <td><input class="form-control input-lg" placeholder="In-time" autofocus #todoin></td>
-                            <td><input class="form-control input-lg" placeholder="out-time" autofocus #todoout></td>
-                        </tr>
-                    </table>
-                    <br>
-                    <button (click)="addTodo($event, todoname, todoaddress, todonumber, todoin, todoout)" class="btn btn-primary btn-block">Create</button>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
                 </div>
+            </nav>
+
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="add-todo-form text-center">
+                        <h1>Visitors Welcome</h1>
+                        <div class="row">
+                            <div class="form-group">
+
+                                <table>
+                                    <form [formGroup]="dashForm">
+                                        <tr>
+                                            <td><input type="text" class="form-control input-lg" placeholder="Name" formControlName="name" autofocus #name></td>
+                                            <td><input type="email" class="form-control input-lg" placeholder="E-mail" formControlName="email" autofocus #email></td>
+                                            <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
+                                            <td><input type="time" class="form-control input-lg" placeholder="In-time" formControlName="in_time" autofocus #in></td>
+                                            <td><input type="time" class="form-control input-lg" placeholder="out-time" formControlName="out_time" autofocus #out></td>
+                                        </tr>
+                                    </form>
+                                </table>
+                                <br>
+                                <button [disabled]="!dashForm.valid" (click)=" addTodo($event, name, email, number, in, out) " class="btn btn-primary btn-block ">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-2 ">
+                        <div class="todo-list ">
+                            <div>
+
+                                <div class="col-lg-10 ">
+                                    <table class="table table-hover ">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Number</th>
+                                            <th>In-time</th>
+                                            <th>Out-time</th>
+                                        </tr>
+                                        <tr *ngFor="let todo of todos ">
+                                            <td>{{todo.name}}</td>
+                                            <td>{{todo.email}}</td>
+                                            <td>{{todo.number}}</td>
+                                            <td>{{todo.in_time}}</td>
+                                            <td>{{todo.out_time}}</td>
+                                            <td><input type="text " [class.hidden]="!todo.isEditMode " [value]="todo.text " (keypress)="updateTodoText($event, todo) "></td>
+                                            <td><input type="button " [class.hidden]="!todo.isEditMode " value="Cancel " (click)="setEditState(todo, false) " class="btn btn-warning "></td>
+                                            <td><input (click)="deleteTodo(todo) " type="button " class="btn btn-default pull-right " value="Delete "></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                                <div class="col-md-4 btns ">
+                                    <!--                <input (click)="deleteTodo(todo.name) " type="button " class="btn btn-danger pull-right " value="Delete ">-->
+                                    <!-- <input [class.disabled]="todo.isCompleted " (click)="setEditState(todo, true) " type="button " class="btn btn-default pull-right " value="Edit ">-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-            <div class="todo-list">
-                <div>
-
-                    <div class="col-md-7">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Number</th>
-                                <th>In-time</th>
-                                <th>Out-time</th>
-                            </tr>
-                            <tr *ngFor="let todo of todos">
-                                <td>{{todo.name}}</td>
-                                <td>{{todo.address}}</td>
-                                <td>{{todo.m_number}}</td>
-                                <td>{{todo.in_time}}</td>
-                                <td>{{todo.out_time}}</td>
-                                <td><input type="text" [class.hidden]="!todo.isEditMode" [value]="todo.text" (keypress)="updateTodoText($event, todo)"></td>
-                                <td><input type="button" [class.hidden]="!todo.isEditMode" value="Cancel" (click)="setEditState(todo, false)" class="btn btn-warning"></td>
-                                <td><input (click)="deleteTodo(todo)" type="button" class="btn btn-default pull-right" value="Delete"></td>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <div class="col-md-4 btns">
-                        <!--                <input (click)="deleteTodo(todo.name)" type="button" class="btn btn-danger pull-right" value="Delete">-->
-                        <!-- <input [class.disabled]="todo.isCompleted" (click)="setEditState(todo, true)" type="button" class="btn btn-default pull-right" value="Edit">-->
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
+</body>
 
-
-
-
-</div>
+</html>

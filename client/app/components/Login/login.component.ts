@@ -55,10 +55,9 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('host_email', loginUsers.email);
                 localStorage.setItem('host_name',loginUsers.username);
 
-                console.log(""+loginUsers.email);
+                console.log(""+loginUsers.email);*/
 
-                this.router.navigate(['dashboard']);
-                */
+                
             }
       });
   }

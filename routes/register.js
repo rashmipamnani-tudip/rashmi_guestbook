@@ -14,7 +14,7 @@ router.get('/users', function(req, res, next) {
     });
 });
 
-
+//Saving registered user
 router.post('/user', function(req, res, next) {
     var user = req.body;
     console.log("It reached here");

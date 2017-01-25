@@ -10,15 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var todo_service_1 = require("../services/todo.service");
+var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var TodosComponent = (function () {
-    function TodosComponent(_todoService, router) {
+    function TodosComponent(_todoService, router, formbuilder) {
         this._todoService = _todoService;
         this.router = router;
+        this.formbuilder = formbuilder;
         this.e_mail = localStorage.getItem("host_email");
     }
     TodosComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.dashForm = this.formbuilder.group({
+            name: ['', forms_1.Validators.required],
+            email: ['', [forms_1.Validators.required, forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
+            number: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10), forms_1.Validators.maxLength(10)]],
+            in_time: ['', forms_1.Validators.required],
+            out_time: ['', forms_1.Validators.required]
+        });
         this.todos = [];
         var check = {
             hmail: this.e_mail
@@ -33,8 +42,8 @@ var TodosComponent = (function () {
         var result;
         var newTodo = {
             name: todoname.value,
-            address: todoaddress.value,
-            m_number: todonumber.value,
+            email: todoaddress.value,
+            number: todonumber.value,
             in_time: todoin.value,
             out_time: todoout.value,
             hmail: this.e_mail
@@ -113,7 +122,7 @@ TodosComponent = __decorate([
         templateUrl: 'todos.component.html',
         providers: [todo_service_1.TodoService]
     }),
-    __metadata("design:paramtypes", [todo_service_1.TodoService, router_1.Router])
+    __metadata("design:paramtypes", [todo_service_1.TodoService, router_1.Router, forms_1.FormBuilder])
 ], TodosComponent);
 exports.TodosComponent = TodosComponent;
 //# sourceMappingURL=todos.component.js.map
