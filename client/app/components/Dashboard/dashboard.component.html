@@ -43,13 +43,13 @@
                                         <td><input type="text" class="form-control input-lg" placeholder="Name" formControlName="name" autofocus #name></td>
                                         <td><input type="email" class="form-control input-lg" placeholder="E-mail" formControlName="email" autofocus #email></td>
                                         <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
-                                        <td><input type="time" class="form-control input-lg" placeholder="In-time" formControlName="in_time" autofocus #in></td>
-                                        <td><input type="time" class="form-control input-lg" placeholder="out-time" formControlName="out_time" autofocus #out></td>
+                                        <!-- <td><input type="time" class="form-control input-lg" placeholder="In-time" formControlName="in_time" autofocus #in></td>
+                                        <td><input type="time" class="form-control input-lg" placeholder="out-time" formControlName="out_time" autofocus #out></td>-->
                                     </tr>
                                 </form>
                             </table>
                             <br>
-                            <button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number, in, out) " class="btn btn-primary btn-block ">Create</button>
+                            <button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number) " class="btn btn-primary btn-block ">Create</button>
                         </div>
                     </div>
                 </div>
@@ -66,6 +66,7 @@
                                         <th>In-time</th>
                                         <th>Out-time</th>
                                         <th>Receptionists' Name</th>
+                                        <th>Out</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -77,7 +78,7 @@
                                         <td>{{visitor.in_time}}</td>
                                         <td>{{visitor.out_time}}</td>
                                         <td>{{visitor.receptionist_name}}</td>
-
+                                        <td><input (click)="out(visitor.out_time) " type="button " class="btn btn-default pull-right " value="Out "></td>
                                         <td><input (click)="edit_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Edit "></td>
                                         <td><input (click)="delete_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Delete "></td>
                                     </tr>

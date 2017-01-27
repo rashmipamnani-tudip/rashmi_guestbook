@@ -36,7 +36,7 @@ var LoginComponent = (function () {
         result = this.login_service.verifyUser(myuser);
         result.subscribe(function (x) {
             _this.users = x;
-            console.log("Ans is : ", x);
+            console.log("Ans is : ", _this.users);
             if (x.toString() == "User not found") {
                 alert("User not registered or wrong password");
                 myemail.value = "";

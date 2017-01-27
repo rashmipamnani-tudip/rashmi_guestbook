@@ -26,8 +26,6 @@ var DashComponent = (function () {
             name: ['', forms_1.Validators.required],
             email: ['', [forms_1.Validators.required, forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
             number: ['', [forms_1.Validators.required, forms_1.Validators.minLength(10), forms_1.Validators.maxLength(10)]],
-            in_time: ['', forms_1.Validators.required],
-            out_time: ['', forms_1.Validators.required],
         });
         this.visitors = [];
         var check = {
@@ -38,15 +36,15 @@ var DashComponent = (function () {
             _this.visitors = visitors;
         });
     };
-    DashComponent.prototype.add_visitor = function (event, visitor_name, visitor_email, visitor_number, visitor_in, visitor_out) {
+    DashComponent.prototype.add_visitor = function (event, visitor_name, visitor_email, visitor_number) {
         var _this = this;
         var result;
         var new_visitor = {
             name: visitor_name.value,
             email: visitor_email.value,
             number: visitor_number.value,
-            in_time: visitor_in.value,
-            out_time: visitor_out.value,
+            in_time: new Date().toTimeString().split(" ")[0],
+            out_time: "",
             hmail: this.e_mail,
             receptionist_name: this.host_name
         };
@@ -56,9 +54,7 @@ var DashComponent = (function () {
         });
         visitor_name.value = '';
         visitor_email.value = '';
-        visitor_in.value = '';
         visitor_number.value = '';
-        visitor_out.value = '';
     };
     DashComponent.prototype.logout = function () {
         sessionStorage.removeItem("hmail");
@@ -101,6 +97,8 @@ var DashComponent = (function () {
         sessionStorage.setItem('this_visitor_hmail', visitor.hmail);
         sessionStorage.setItem('this_visitor_rec_name', visitor.receptionist_name);
         this.router.navigate(['edit']);
+    };
+    DashComponent.prototype.out = function (visitor) {
     };
     return DashComponent;
 }());

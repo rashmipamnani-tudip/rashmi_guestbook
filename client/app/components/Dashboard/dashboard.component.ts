@@ -28,8 +28,8 @@ export class DashComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
       number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      in_time: ['', Validators.required],
-      out_time: ['', Validators.required],
+    //  in_time: ['', Validators.required],
+      //out_time: ['', Validators.required],
 
     });
 
@@ -45,14 +45,14 @@ export class DashComponent implements OnInit {
 
   }
 
-  add_visitor(event, visitor_name, visitor_email, visitor_number, visitor_in, visitor_out) {
+  add_visitor(event, visitor_name, visitor_email, visitor_number) {
     var result;
     var new_visitor = {
       name: visitor_name.value,
       email: visitor_email.value,
       number: visitor_number.value,
-      in_time: visitor_in.value,
-      out_time: visitor_out.value,
+      in_time: new Date().toTimeString().split(" ")[0],
+      out_time: "",
       hmail: this.e_mail,
       receptionist_name: this.host_name
     };
@@ -64,9 +64,7 @@ export class DashComponent implements OnInit {
 
     visitor_name.value = '';
     visitor_email.value = '';
-    visitor_in.value = '';
     visitor_number.value = '';
-    visitor_out.value = '';
   }
 
   logout() {
@@ -115,6 +113,10 @@ edit_visitor(visitor){
   sessionStorage.setItem('this_visitor_rec_name',visitor.receptionist_name);
   this.router.navigate(['edit']);
 
+}
+
+out (visitor){
+  
 }
 
 }
