@@ -7,8 +7,23 @@ var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook',
 router.get('/visitors', function(req, res, next) {
     db.visitors.find(function(err, visitors) {
         if (err) {
-            console.log("error");
-            res.send(err);
+            if (res.status(500)) {
+                res.send({
+                    'error': true,
+                    'message': 'INTERNAL SERVER ERROR'
+                });
+            } else if (res.status(400)) {
+                res.send({
+                    'error': true,
+                    'message': 'SESSION EXPIRED'
+                });
+            } else {
+                res.send({
+                    'error': true,
+                    'message': 'Server error occured'
+                });
+            }
+
         } else {
             res.json(visitors);
             console.log("sending todos");
@@ -22,7 +37,23 @@ router.get('/visitor/:id', function(req, res, next) {
         _id: mongojs.ObjectId(req.params.id)
     }, function(err, visitor) {
         if (err) {
-            res.send(err);
+            if (res.status(500)) {
+                res.send({
+                    'error': true,
+                    'message': 'INTERNAL SERVER ERROR'
+                });
+            } else if (res.status(400)) {
+                res.send({
+                    'error': true,
+                    'message': 'SESSION EXPIRED'
+                });
+            } else {
+                res.send({
+                    'error': true,
+                    'message': 'Server error occured'
+                });
+            }
+
         } else {
             res.json(visitor);
         }
@@ -36,7 +67,23 @@ router.post('/visitor/store', function(req, res, next) {
 
     db.visitors.save(visitor, function(err, result) {
         if (err) {
-            res.send(err);
+            if (res.status(500)) {
+                res.send({
+                    'error': true,
+                    'message': 'INTERNAL SERVER ERROR'
+                });
+            } else if (res.status(400)) {
+                res.send({
+                    'error': true,
+                    'message': 'SESSION EXPIRED'
+                });
+            } else {
+                res.send({
+                    'error': true,
+                    'message': 'Server error occured'
+                });
+            }
+
         } else {
             res.json(result);
         }
@@ -51,7 +98,23 @@ router.delete('/visitors/:id', function(req, res, next) {
         _id: mongojs.ObjectId(req.params.id)
     }, '', function(err, result) {
         if (err) {
-            res.send(err);
+            if (res.status(500)) {
+                res.send({
+                    'error': true,
+                    'message': 'INTERNAL SERVER ERROR'
+                });
+            } else if (res.status(400)) {
+                res.send({
+                    'error': true,
+                    'message': 'SESSION EXPIRED'
+                });
+            } else {
+                res.send({
+                    'error': true,
+                    'message': 'Server error occured'
+                });
+            }
+
         } else {
             res.json(result);
         }
@@ -63,9 +126,23 @@ router.post('/visitors', function(req, res, next) {
     if (req.body.hmail == "admin@tudip.com") {
         db.visitors.find(function(err, visitors) {
             if (err) {
+                if (res.status(500)) {
+                    res.send({
+                        'error': true,
+                        'message': 'INTERNAL SERVER ERROR'
+                    });
+                } else if (res.status(400)) {
+                    res.send({
+                        'error': true,
+                        'message': 'SESSION EXPIRED'
+                    });
+                } else {
+                    res.send({
+                        'error': true,
+                        'message': 'Server error occured'
+                    });
+                }
 
-                console.log("error");
-                res.send(err);
             } else {
                 res.json(visitors);
             }
