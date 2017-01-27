@@ -3,14 +3,8 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['visitors']);
 
-//for showing dashboard page
-router.get('/', function(req, res, next) {
-    res.render('index.html');
-});
-
 // Get visitors
 router.get('/visitors', function(req, res, next) {
-    console.log("Hello");
     db.visitors.find(function(err, visitors) {
         if (err) {
             console.log("error");
@@ -64,6 +58,7 @@ router.delete('/visitors/:id', function(req, res, next) {
     });
 });
 
+//To display visitors
 router.post('/visitors', function(req, res, next) {
     if (req.body.hmail == "admin@tudip.com") {
         db.visitors.find(function(err, visitors) {

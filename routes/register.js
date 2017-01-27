@@ -4,18 +4,6 @@ var mongojs = require('mongojs');
 var bcrypt = require('bcrypt');
 var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['users']);
 
-// Get Todos
-router.get('/users', function(req, res, next) {
-    db.users.find(function(err, todos) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(todos);
-            console.log("admin check");
-        }
-    });
-});
-
 //register user
 router.post('/register', function(req, res, next) {
     var user = req.body;
@@ -56,21 +44,7 @@ router.post('/register', function(req, res, next) {
             }
         });
     });
-
-
-    router.get('/user/:id', function(req, res, next) {
-        db.users.findOne({
-            _id: mongojs.ObjectId(req.params.id)
-        }, function(err, user) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.json(user);
-            }
-        });
-    });
 });
-
 
 // For login
 router.post('/login', function(req, res, next) {

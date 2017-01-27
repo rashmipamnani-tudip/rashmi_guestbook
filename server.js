@@ -31,6 +31,14 @@ app.use('/signup', function(req, res, next) {
     res.render('index.html');
 });
 
+app.use('/edit', function(req, res, next) {
+    res.render('index.html');
+});
+
+app.use('/search', function(req, res, next) {
+    res.render('index.html');
+});
+
 app.use('/api/', visitors);
 app.use('/api/auth/', users);
 
