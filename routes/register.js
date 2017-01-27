@@ -79,18 +79,18 @@ router.post('/login', function(req, res, next) {
     db.users.findOne({ email: req.body.email },
         function(err, result) {
             if (err) {
-                res.json(err);
+                res.json("User not found");
             } else if (!result) {
-                res.json(null);
+                res.json("User not found");
             } else {
                 bcrypt.compare(req.body.password, result.pwd, function(err, users) {
                     if (err) {
                         console.log("Wrong pass 1");
-                        res.send({
-                            "error": "Invalid password"
-                        });
+                        res.json("User not found");
+                    } else if (!users) {
+                        res.json("User not found");
                     } else {
-                        console.log("Server position");
+                        //console.log("Server position");
                         res.send(result);
                     }
                 });

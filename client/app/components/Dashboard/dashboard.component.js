@@ -60,35 +60,6 @@ var DashComponent = (function () {
         visitor_number.value = '';
         visitor_out.value = '';
     };
-    /*
-      updateStatus(todo) {
-        var _todo = {
-          _id: todo._id,
-          text: todo.text,
-          isCompleted: !todo.isCompleted
-        };
-    
-        this._todoService.updateTodo(_todo)
-          .subscribe(data => {
-            todo.isCompleted = !todo.isCompleted;
-          });
-      }
-    */
-    /*  updateTodoText(event, todo) {
-        if (event.which === 13) {
-          todo.text = event.target.value;
-          var _todo = {
-            _id: todo._id,
-            text: todo.text,
-            isCompleted: todo.isCompleted
-          };
-    
-          this._todoService.updateTodo(_todo)
-            .subscribe(data => {
-              this.setEditState(todo, false);
-            })
-        }
-      }*/
     DashComponent.prototype.logout = function () {
         sessionStorage.removeItem("hmail");
         this.router.navigate(['']);
@@ -120,6 +91,16 @@ var DashComponent = (function () {
         // var response = JSON.parse(sessionStorage.getItem('search_item'))
         this.router.navigate(['search']);
         //console.log(response[0].email);
+    };
+    DashComponent.prototype.edit_visitor = function (visitor) {
+        sessionStorage.setItem('this_visitor_name', visitor.name);
+        sessionStorage.setItem('this_visitor_email', visitor.email);
+        sessionStorage.setItem('this_visitor_number', visitor.number);
+        sessionStorage.setItem('this_visitor_in_time', visitor.in_time);
+        sessionStorage.setItem('this_visitor_out_time', visitor.out_time);
+        sessionStorage.setItem('this_visitor_hmail', visitor.hmail);
+        sessionStorage.setItem('this_visitor_rec_name', visitor.receptionist_name);
+        this.router.navigate(['edit']);
     };
     return DashComponent;
 }());

@@ -25,12 +25,12 @@ var DashService = (function () {
         return this._http.post('/api/visitor/store', JSON.stringify(visitor), { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    /*update_visitor(todo){
-        var headers = new Headers();
+    DashService.prototype.update_visitor = function (visitor) {
+        var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.put('/api/v1/todo/'+todo._id, JSON.stringify(todo), {headers: headers})
-            .map(res => res.json());
-    }*/
+        return this._http.post('/api/visitors/edit', JSON.stringify(visitor), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     DashService.prototype.delete_visitor = function (id) {
         return this._http.delete('/api/visitors/' + id)
             .map(function (res) { return res.json(); });

@@ -69,37 +69,6 @@ export class DashComponent implements OnInit {
     visitor_out.value = '';
   }
 
-
-  /*
-    updateStatus(todo) {
-      var _todo = {
-        _id: todo._id,
-        text: todo.text,
-        isCompleted: !todo.isCompleted
-      };
-  
-      this._todoService.updateTodo(_todo)
-        .subscribe(data => {
-          todo.isCompleted = !todo.isCompleted;
-        });
-    }
-  */
-/*  updateTodoText(event, todo) {
-    if (event.which === 13) {
-      todo.text = event.target.value;
-      var _todo = {
-        _id: todo._id,
-        text: todo.text,
-        isCompleted: todo.isCompleted
-      };
-
-      this._todoService.updateTodo(_todo)
-        .subscribe(data => {
-          this.setEditState(todo, false);
-        })
-    }
-  }*/
-
   logout() {
 
     sessionStorage.removeItem("hmail");
@@ -135,4 +104,17 @@ export class DashComponent implements OnInit {
      this.router.navigate(['search']);
       //console.log(response[0].email);
   }
+edit_visitor(visitor){
+    
+  sessionStorage.setItem('this_visitor_name',visitor.name);
+  sessionStorage.setItem('this_visitor_email',visitor.email);
+  sessionStorage.setItem('this_visitor_number', visitor.number);
+  sessionStorage.setItem('this_visitor_in_time',visitor.in_time);  
+  sessionStorage.setItem('this_visitor_out_time',visitor.out_time);  
+  sessionStorage.setItem('this_visitor_hmail',visitor.hmail); 
+  sessionStorage.setItem('this_visitor_rec_name',visitor.receptionist_name);
+  this.router.navigate(['edit']);
+
+}
+
 }

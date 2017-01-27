@@ -1,0 +1,35 @@
+<div class="container col-lg-4 col-lg-offset-4 jumbotron">
+    <form [formGroup]="edit_form">
+        <div>
+            <h2 class="col-lg-offset-5">Edit</h2>
+
+            <br>
+
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" #name>
+        </div>
+
+        <br>
+
+        <div>
+            <label for="email">Email </label>
+            <input type="email" class="form-control" id="email" formControlName="email" #email>
+        </div>
+
+        <div>
+            <label for="number">Number </label>
+            <input type="number" class="form-control" id="number" formControlName="number" #number>
+        </div>
+
+        <div>
+            <label for="intime">In-time </label>
+            <input type="time" class="form-control" id="intime" formControlName="in_time" #intime>
+        </div>
+
+        <div>
+            <label for="outtime">Out-time </label>
+            <input type="time" class="form-control" id="outtime" formControlName="out_time" #outtime>
+        </div>
+        <button class="btn btn-primary" (click)="save_edited($event, name, email, number, intime, outtime)">Save</button>
+    </form>
+</div>

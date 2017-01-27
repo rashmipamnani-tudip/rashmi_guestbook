@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 col-md-offset-2 ">
+                <div class="col-md-10 ">
                     <div class="todo-list ">
                         <div>
 
@@ -66,7 +66,10 @@
                                         <th>In-time</th>
                                         <th>Out-time</th>
                                         <th>Receptionists' Name</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
+
                                     <tr *ngFor="let visitor of visitors ">
                                         <td>{{visitor.name}}</td>
                                         <td>{{visitor.email}}</td>
@@ -75,16 +78,14 @@
                                         <td>{{visitor.out_time}}</td>
                                         <td>{{visitor.receptionist_name}}</td>
 
-                                        <!-- <td><input type="text " [class.hidden]="!todo.isEditMode " [value]="todo.text " (keypress)="updateTodoText($event, todo) "></td>
-                                            <td><input type="button " [class.hidden]="!todo.isEditMode " value="Cancel " (click)="setEditState(todo, false) " class="btn btn-warning "></td>-->
+                                        <td><input (click)="edit_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Edit "></td>
                                         <td><input (click)="delete_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Delete "></td>
                                     </tr>
 
                                 </table>
                             </div>
                             <div class="col-md-4 btns ">
-                                <!--                <input (click)="deleteTodo(todo.name) " type="button " class="btn btn-danger pull-right " value="Delete ">-->
-                                <!-- <input [class.disabled]="todo.isCompleted " (click)="setEditState(todo, true) " type="button " class="btn btn-default pull-right " value="Edit ">-->
+
                             </div>
                         </div>
                     </div>

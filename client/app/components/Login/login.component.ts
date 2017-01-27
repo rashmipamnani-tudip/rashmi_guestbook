@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
 
       this.users = x;
 
-      if (x.error != null) {
+      console.log("Ans is : ",x);
+
+      if (x.toString() == "User not found") {
         alert("User not registered or wrong password");
         myemail.value = "";
         mypass.value = "";

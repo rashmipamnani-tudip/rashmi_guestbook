@@ -14,7 +14,7 @@ export class DashService{
             .map(res => res.json());
     }
     
-    save_visitors(visitor){
+save_visitors(visitor){
         
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -22,14 +22,14 @@ export class DashService{
             .map(res => res.json());
     }
     
-    /*update_visitor(todo){
+update_visitor(visitor){
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.put('/api/v1/todo/'+todo._id, JSON.stringify(todo), {headers: headers})
+        return this._http.post('/api/visitors/edit' ,JSON.stringify(visitor), {headers: headers})
             .map(res => res.json());
-    }*/
+    }
     
-   delete_visitor(id){
+delete_visitor(id){
         return this._http.delete('/api/visitors/'+id)
             .map(res => res.json());
     }
