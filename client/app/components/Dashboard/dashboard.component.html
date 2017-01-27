@@ -1,26 +1,5 @@
 <html>
 
-<head>
-    <title>Atithi</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="styles.css">-->
-    <!-- 1. Load libraries -->
-    <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <!-- 2. Configure SystemJS -->
-    <script src="systemjs.config.js"></script>
-    <script>
-        System.import('app').catch(function(err) {
-            console.error(err);
-        });
-    </script>
-</head>
-
 <body>
     <div>
         <div class="container col-lg-10 col-lg-offset-1 jumbotron">
@@ -66,7 +45,7 @@
                                     </form>
                                 </table>
                                 <br>
-                                <button [disabled]="!dashForm.valid" (click)=" addTodo($event, name, email, number, in, out) " class="btn btn-primary btn-block ">Create</button>
+                                <button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number, in, out) " class="btn btn-primary btn-block ">Create</button>
                             </div>
                         </div>
                     </div>
@@ -84,17 +63,17 @@
                                             <th>Out-time</th>
                                             <th>Receptionists' Name</th>
                                         </tr>
-                                        <tr *ngFor="let todo of todos ">
-                                            <td>{{todo.name}}</td>
-                                            <td>{{todo.email}}</td>
-                                            <td>{{todo.number}}</td>
-                                            <td>{{todo.in_time}}</td>
-                                            <td>{{todo.out_time}}</td>
-                                            <td>{{todo.receptionist_name}}</td>
+                                        <tr *ngFor="let visitor of visitors ">
+                                            <td>{{visitor.name}}</td>
+                                            <td>{{visitor.email}}</td>
+                                            <td>{{visitor.number}}</td>
+                                            <td>{{visitor.in_time}}</td>
+                                            <td>{{visitor.out_time}}</td>
+                                            <td>{{visitor.receptionist_name}}</td>
 
-                                            <td><input type="text " [class.hidden]="!todo.isEditMode " [value]="todo.text " (keypress)="updateTodoText($event, todo) "></td>
-                                            <td><input type="button " [class.hidden]="!todo.isEditMode " value="Cancel " (click)="setEditState(todo, false) " class="btn btn-warning "></td>
-                                            <td><input (click)="deleteTodo(todo) " type="button " class="btn btn-default pull-right " value="Delete "></td>
+                                            <!-- <td><input type="text " [class.hidden]="!todo.isEditMode " [value]="todo.text " (keypress)="updateTodoText($event, todo) "></td>
+                                            <td><input type="button " [class.hidden]="!todo.isEditMode " value="Cancel " (click)="setEditState(todo, false) " class="btn btn-warning "></td>-->
+                                            <td><input (click)="delete_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Delete "></td>
                                         </tr>
 
                                     </table>

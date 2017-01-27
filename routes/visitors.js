@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['todos']);
+var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['visitors']);
 
 //for showing dashboard page
 router.get('/', function(req, res, next) {
@@ -11,39 +11,38 @@ router.get('/', function(req, res, next) {
 
 
 // Get Todos
-router.get('/todos', function(req, res, next) {
+router.get('/visitors', function(req, res, next) {
     console.log("Hello");
-    db.todos.find(function(err, todos) {
+    db.visitors.find(function(err, visitors) {
         if (err) {
-
             console.log("error");
             res.send(err);
         } else {
-            res.json(todos);
+            res.json(visitors);
             console.log("sending todos");
         }
     });
 });
 
 // Get Single Todo
-router.get('/todo/:id', function(req, res, next) {
-    db.todos.findOne({
+router.get('/visitor/:id', function(req, res, next) {
+    db.visitors.findOne({
         _id: mongojs.ObjectId(req.params.id)
-    }, function(err, todo) {
+    }, function(err, visitor) {
         if (err) {
             res.send(err);
         } else {
-            res.json(todo);
+            res.json(visitor);
         }
     });
 });
 
-// Save Todo
-router.post('/todo', function(req, res, next) {
-    var todo = req.body;
+// Save visitor
+router.post('/visitor/store', function(req, res, next) {
+    var visitor = req.body;
     console.log("It reached here");
 
-    db.todos.save(todo, function(err, result) {
+    db.visitors.save(visitor, function(err, result) {
         if (err) {
             res.send(err);
         } else {
@@ -52,10 +51,10 @@ router.post('/todo', function(req, res, next) {
     });
 
 });
-
+/*
 // Update Todo
 router.put('/todo/:id', function(req, res, next) {
-    var todo = req.body;
+    var visitor = req.body;
     var updObj = {};
 
     if (todo.isCompleted) {
@@ -83,10 +82,12 @@ router.put('/todo/:id', function(req, res, next) {
         });
     }
 });
+*/
 
-// Delete Todo
-router.delete('/delete/:id', function(req, res, next) {
-    db.todos.remove({
+// Delete Visitor
+
+router.delete('/visitors/:id', function(req, res, next) {
+    db.visitors.remove({
         _id: mongojs.ObjectId(req.params.id)
     }, '', function(err, result) {
         if (err) {
@@ -97,25 +98,24 @@ router.delete('/delete/:id', function(req, res, next) {
     });
 });
 
-router.post('/host', function(req, res, next) {
+router.post('/visitors', function(req, res, next) {
     if (req.body.hmail == "admin@tudip.com") {
-        db.todos.find(function(err, todos) {
+        db.visitors.find(function(err, visitors) {
             if (err) {
 
                 console.log("error");
                 res.send(err);
             } else {
-                res.json(todos);
-                console.log("sending todos");
+                res.json(visitors);
             }
         });
     } else {
 
-        db.todos.find({ hmail: req.body.hmail }, function(err, todos) {
+        db.visitors.find({ hmail: req.body.hmail }, function(err, visitors) {
             if (err) {
                 res.send(err);
             } else {
-                res.json(todos);
+                res.json(visitors);
             }
         });
     }

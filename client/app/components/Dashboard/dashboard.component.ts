@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from '../services/todo.service';
-import { Todo } from '../Todo';
+import { DashService} from '../../services/dash.service';
+import { visitors } from './visitor';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, RouterModule } from '@angular/router'
 
 @Component({
   moduleId: module.id,
-  selector: 'todos',
-  templateUrl: 'todos.component.html',
-  providers: [TodoService]
+  selector: 'dash_board',
+  templateUrl: 'dashboard.component.html',
+  providers: [DashService]
 })
 
-export class TodosComponent implements OnInit {
-  todos: Todo[];
+export class DashComponent implements OnInit {
+  visitors: visitors[];
   dashForm: FormGroup;
   e_mail = sessionStorage.getItem("host_email");
   host_name = sessionStorage.getItem('host_name');
-  constructor(private _todoService: TodoService, private router: Router, private formbuilder: FormBuilder) {
+  constructor(private _dashService: DashService, private router: Router, private formbuilder: FormBuilder) {
 
   }
 
@@ -32,49 +32,42 @@ export class TodosComponent implements OnInit {
 
     });
 
-    this.todos = [];
+    this.visitors = [];
 
     var check = {
       hmail: this.e_mail
     }
-    this._todoService.hostedTodo(check)
-      .subscribe(todos => {
-        this.todos = todos;
+    this._dashService.host_visitor(check)
+      .subscribe(visitors => {
+        this.visitors = visitors;
       });
 
   }
 
-  addTodo(event, todoname, todoaddress, todonumber, todoin, todoout) {
+  add_visitor(event, visitor_name, visitor_email, visitor_number, visitor_in, visitor_out) {
     var result;
-    var newTodo = {
-      name: todoname.value,
-      email: todoaddress.value,
-      number: todonumber.value,
-      in_time: todoin.value,
-      out_time: todoout.value,
+    var new_visitor = {
+      name: visitor_name.value,
+      email: visitor_email.value,
+      number: visitor_number.value,
+      in_time: visitor_in.value,
+      out_time: visitor_out.value,
       hmail: this.e_mail,
       receptionist_name: this.host_name
     };
 
-    result = this._todoService.saveTodo(newTodo);
+    result = this. _dashService.save_visitors(new_visitor);
     result.subscribe(x => {
-      this.todos.push(newTodo);
+      this.visitors.push(new_visitor);
     });
 
-    todoname.value = '';
-    todoaddress.value = '';
-    todoin.value = '';
-    todonumber.value = '';
-    todoout.value = '';
+    visitor_name.value = '';
+    visitor_email.value = '';
+    visitor_in.value = '';
+    visitor_number.value = '';
+    visitor_out.value = '';
   }
 
-  setEditState(todo, state) {
-    if (state) {
-      todo.isEditMode = state;
-    } else {
-      delete todo.isEditMode;
-    }
-  }
 
   /*
     updateStatus(todo) {
@@ -90,7 +83,7 @@ export class TodosComponent implements OnInit {
         });
     }
   */
-  updateTodoText(event, todo) {
+/*  updateTodoText(event, todo) {
     if (event.which === 13) {
       todo.text = event.target.value;
       var _todo = {
@@ -104,7 +97,8 @@ export class TodosComponent implements OnInit {
           this.setEditState(todo, false);
         })
     }
-  }
+  }*/
+
   logout() {
 
     sessionStorage.removeItem("hmail");
@@ -112,15 +106,16 @@ export class TodosComponent implements OnInit {
     alert(" THANK YOU");
 
   }
-  deleteTodo(todo) {
-    var todos = this.todos;
 
-    this._todoService.deleteTodo(todo._id)
+  delete_visitor(visitor) {
+    var visitors = this.visitors;
+
+    this._dashService.delete_visitor(visitor._id)
       .subscribe(data => {
         if (data.n == 1) {
-          for (var i = 0; i < todos.length; i++) {
-            if (todos[i]._id == todo._id) {
-              todos.splice(i, 1);
+          for (var i = 0; i < visitors.length; i++) {
+            if (visitors[i]._id == visitor._id) {
+              visitors.splice(i, 1);
             }
           }
         }

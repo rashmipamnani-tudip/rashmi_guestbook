@@ -3,7 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var todos = require('./routes/todos');
+var visitors = require('./routes/visitors');
 //var dashboard = require('./routes/dashboard_display');
 //var register = require('./routes/register_display')
 var users = require('./routes/register');
@@ -31,8 +31,8 @@ app.use('/signup', function(req, res, next) {
     res.render('index.html');
 });
 
-app.use('/api/v1/', todos);
-app.use('/api/v1/', users);
+app.use('/api/', visitors);
+app.use('/api/auth/', users);
 
 app.listen(3000, function() {
     console.log('Server started on port 3000...');

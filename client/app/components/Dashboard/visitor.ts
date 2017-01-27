@@ -1,4 +1,4 @@
-export class Todo{
+export class visitors{
 name: string;
 email: string;
 number: number;

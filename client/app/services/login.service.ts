@@ -11,7 +11,7 @@ export class loginService {
         var headers = new Headers();
         console.log("Here we are...");
         headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/find', JSON.stringify(myuser), { headers: headers })
+        return this._http.post('/api/auth/login', JSON.stringify(myuser), { headers: headers })
             .map(res => res.json());
     }
 

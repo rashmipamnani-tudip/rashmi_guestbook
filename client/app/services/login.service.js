@@ -19,7 +19,7 @@ var loginService = (function () {
         var headers = new http_1.Headers();
         console.log("Here we are...");
         headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/find', JSON.stringify(myuser), { headers: headers })
+        return this._http.post('/api/auth/login', JSON.stringify(myuser), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return loginService;

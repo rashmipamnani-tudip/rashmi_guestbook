@@ -17,7 +17,7 @@ router.get('/users', function(req, res, next) {
 });
 
 //register user
-router.post('/user', function(req, res, next) {
+router.post('/register', function(req, res, next) {
     var user = req.body;
 
     bcrypt.hash(req.body.pwd, 10, function(err, hash) {
@@ -73,7 +73,7 @@ router.post('/user', function(req, res, next) {
 
 
 // For login
-router.post('/find', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     var user = req.body;
 
     db.users.findOne({ email: req.body.email },

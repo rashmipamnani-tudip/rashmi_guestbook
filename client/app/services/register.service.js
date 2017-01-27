@@ -19,7 +19,7 @@ var RegisterService = (function () {
         console.log("It reached here");
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/user', JSON.stringify(recipt), { headers: headers })
+        return this._http.post('/api/auth/register', JSON.stringify(recipt), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return RegisterService;

@@ -11,41 +11,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var TodoService = (function () {
-    function TodoService(_http) {
+var DashService = (function () {
+    function DashService(_http) {
         this._http = _http;
     }
-    TodoService.prototype.getTodos = function () {
-        return this._http.get('/api/v1/todos')
+    DashService.prototype.get_visitors = function () {
+        return this._http.get('/api/visitors')
             .map(function (res) { return res.json(); });
     };
-    TodoService.prototype.saveTodo = function (todo) {
+    DashService.prototype.save_visitors = function (visitor) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/todo', JSON.stringify(todo), { headers: headers })
+        return this._http.post('/api/visitor/store', JSON.stringify(visitor), { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    TodoService.prototype.updateTodo = function (todo) {
+    /*update_visitor(todo){
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.put('/api/v1/todo/'+todo._id, JSON.stringify(todo), {headers: headers})
+            .map(res => res.json());
+    }*/
+    DashService.prototype.delete_visitor = function (id) {
+        return this._http.delete('/api/visitors/' + id)
+            .map(function (res) { return res.json(); });
+    };
+    DashService.prototype.host_visitor = function (editdata) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this._http.put('/api/v1/todo/' + todo._id, JSON.stringify(todo), { headers: headers })
+        return this._http.post('/api/visitors', JSON.stringify(editdata), { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    TodoService.prototype.deleteTodo = function (id) {
-        return this._http.delete('/api/v1/delete/' + id)
-            .map(function (res) { return res.json(); });
-    };
-    TodoService.prototype.hostedTodo = function (editdata) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this._http.post('/api/v1/host', JSON.stringify(editdata), { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
-    return TodoService;
+    return DashService;
 }());
-TodoService = __decorate([
+DashService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], TodoService);
-exports.TodoService = TodoService;
-//# sourceMappingURL=todo.service.js.map
+], DashService);
+exports.DashService = DashService;
+//# sourceMappingURL=dash.service.js.map
