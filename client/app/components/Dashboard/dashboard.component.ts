@@ -116,7 +116,23 @@ edit_visitor(visitor){
 }
 
 out (visitor){
+    var result;
+    var out_visitor={
+name: visitor.name,
+email: visitor.email,
+number: visitor.number,
+in_time: visitor.in_time,
+out_time: new Date().toTimeString().split(" ")[0],
+hmail: visitor.hmail,
+receptionist_name: visitor.receptionist_name
+    };
+     result = this. _dashService.update_visitor(out_visitor)
+
+       result.subscribe(x => {
   
+    });
+    
+
 }
 
 }

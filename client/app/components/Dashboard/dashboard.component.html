@@ -57,7 +57,7 @@
                     <div class="todo-list ">
                         <div>
 
-                            <div class="col-lg-10 ">
+                            <div class="col-lg-12 ">
                                 <table class="table table-hover ">
                                     <tr>
                                         <th>Name</th>
@@ -78,7 +78,7 @@
                                         <td>{{visitor.in_time}}</td>
                                         <td>{{visitor.out_time}}</td>
                                         <td>{{visitor.receptionist_name}}</td>
-                                        <td><input (click)="out(visitor.out_time) " type="button " class="btn btn-default pull-right " value="Out "></td>
+                                        <td><input (click)="out(visitor) " type="button " class="btn btn-default pull-right " value="Out "></td>
                                         <td><input (click)="edit_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Edit "></td>
                                         <td><input (click)="delete_visitor(visitor) " type="button " class="btn btn-default pull-right " value="Delete "></td>
                                     </tr>
