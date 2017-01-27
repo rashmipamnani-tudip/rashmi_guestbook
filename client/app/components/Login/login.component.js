@@ -33,10 +33,12 @@ var LoginComponent = (function () {
             email: myemail.value,
             password: mypass.value
         };
+        console.log(myuser.password);
         result = this.login_service.verifyUser(myuser);
         result.subscribe(function (x) {
             _this.users = x;
-            if (_this.users == null) {
+            console.log(_this.users);
+            if (x == null) {
                 alert("User not registered or wrong password");
                 myemail.value = "";
                 mypass.value = "";
@@ -63,4 +65,11 @@ LoginComponent = __decorate([
     __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.loginService, router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
+/*
+  this.savedUser.users_logged = "" + loginUsers.text;
+
+  localStorage.setItem('host_email', loginUsers.email);
+  localStorage.setItem('host_name',loginUsers.username);
+
+  console.log(""+loginUsers.email);*/
 //# sourceMappingURL=login.component.js.map

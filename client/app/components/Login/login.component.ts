@@ -32,15 +32,21 @@ export class LoginComponent implements OnInit {
       email: myemail.value,
       password: mypass.value
     };
-  
-   result = this.login_service.verifyUser(myuser);
+
+    console.log(myuser.password);
+
+    result = this.login_service.verifyUser(myuser);
 
 
     result.subscribe(x => {
 
       this.users = x;
-      
-      if (this.users == null) {
+
+      console.log(this.users);
+
+
+
+      if (x == null) {
         alert("User not registered or wrong password");
         myemail.value = "";
         mypass.value = "";
@@ -50,12 +56,17 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
         //sessionStorage.setItem('',myuser.name);
         sessionStorage.setItem('host_email', myuser.email);
-        
-        sessionStorage.setItem('host_name',this.users.first_name +" "+ this.users.last_name);
+
+        sessionStorage.setItem('host_name', this.users.first_name + " " + this.users.last_name);
         console.log("email is : " + myuser.email);
-        
-        
-        
+
+      }
+
+
+
+    });
+  }
+}
         /*
           this.savedUser.users_logged = "" + loginUsers.text;
 
@@ -63,9 +74,3 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('host_name',loginUsers.username);
 
           console.log(""+loginUsers.email);*/
-
-
-      }
-    });
-  }
-}
