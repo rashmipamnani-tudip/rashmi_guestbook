@@ -14,6 +14,9 @@ export class editComponent implements OnInit {
     edit_form: FormGroup;
     get_hmail = sessionStorage.getItem('this_visitor_hmail');
     get_hname = sessionStorage.getItem('this_visitor_rec_name');
+    get_in_time = sessionStorage.getItem('this_visitor_in_time');
+    get_out_time = sessionStorage.getItem('this_visitor_out_time');
+
 
     constructor(private formbuilder: FormBuilder, private dash_service: DashService, private router: Router) {
     }
@@ -40,8 +43,8 @@ export class editComponent implements OnInit {
             name: name.value,
             email: email.value,
             number: number.value,
-            in_time: intime.value,
-            out_time: outtime.value,
+            in_time: this.get_in_time,
+            out_time: this.get_out_time,
             hmail: this.get_hmail,
             receptionist_name: this.get_hname
         };

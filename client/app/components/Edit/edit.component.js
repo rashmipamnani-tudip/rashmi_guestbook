@@ -19,6 +19,8 @@ var editComponent = (function () {
         this.router = router;
         this.get_hmail = sessionStorage.getItem('this_visitor_hmail');
         this.get_hname = sessionStorage.getItem('this_visitor_rec_name');
+        this.get_in_time = sessionStorage.getItem('this_visitor_in_time');
+        this.get_out_time = sessionStorage.getItem('this_visitor_out_time');
     }
     editComponent.prototype.ngOnInit = function () {
         var get_name = sessionStorage.getItem('this_visitor_name');
@@ -40,8 +42,8 @@ var editComponent = (function () {
             name: name.value,
             email: email.value,
             number: number.value,
-            in_time: intime.value,
-            out_time: outtime.value,
+            in_time: this.get_in_time,
+            out_time: this.get_out_time,
             hmail: this.get_hmail,
             receptionist_name: this.get_hname
         };

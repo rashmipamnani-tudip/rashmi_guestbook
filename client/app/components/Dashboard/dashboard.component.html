@@ -27,13 +27,13 @@
                     <table>
                         <tr>
                             <td><input type="text" placeholder="search" #search_data></td>
-                            <td><button (click)="search($event, search_data) " class="btn btn-primary btn-block ">Search</button></td>
+                            <td><input type="button" (click)="search($event, search_data) " class="btn btn-primary btn-block " value="search"></td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="add-todo-form text-center">
-                    <h1>Visitors Welcome</h1>
+                    <h1>Guestlist</h1>
                     <div class="row">
                         <div class="form-group">
 
@@ -45,11 +45,10 @@
                                         <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
                                         <!-- <td><input type="time" class="form-control input-lg" placeholder="In-time" formControlName="in_time" autofocus #in></td>
                                         <td><input type="time" class="form-control input-lg" placeholder="out-time" formControlName="out_time" autofocus #out></td>-->
+                                        <td><button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number)" class="btn btn-primary">Create</button></td>
                                     </tr>
                                 </form>
                             </table>
-                            <br>
-                            <button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number) " class="btn btn-primary btn-block ">Create</button>
                         </div>
                     </div>
                 </div>

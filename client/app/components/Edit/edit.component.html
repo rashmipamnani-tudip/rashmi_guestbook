@@ -21,15 +21,6 @@
             <input type="number" class="form-control" id="number" formControlName="number" #number>
         </div>
 
-        <div>
-            <label for="intime">In-time </label>
-            <input type="time" class="form-control" id="intime" formControlName="in_time" #intime>
-        </div>
-
-        <div>
-            <label for="outtime">Out-time </label>
-            <input type="time" class="form-control" id="outtime" formControlName="out_time" #outtime>
-        </div>
-        <button class="btn btn-primary" (click)="save_edited($event, name, email, number, intime, outtime)">Save</button>
+        <button class="btn btn-primary" (click)="save_edited($event, name, email, number)">Save</button>
     </form>
 </div>

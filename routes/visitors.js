@@ -111,7 +111,6 @@ router.delete('/visitors/:id', function(req, res, next) {
             } else {
                 res.send({
                     'error': true,
-                    'message': 'Server error occured'
                 });
             }
 
@@ -131,6 +130,7 @@ router.post('/visitors', function(req, res, next) {
                         'error': true,
                         'message': 'INTERNAL SERVER ERROR'
                     });
+                    b
                 } else if (res.status(400)) {
                     res.send({
                         'error': true,
