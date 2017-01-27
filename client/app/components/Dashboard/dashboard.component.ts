@@ -13,6 +13,7 @@ import { Router, RouterModule } from '@angular/router'
 
 export class DashComponent implements OnInit {
   visitors: visitors[];
+  search_: visitors[];
   dashForm: FormGroup;
   e_mail = sessionStorage.getItem("host_email");
   host_name = sessionStorage.getItem('host_name');
@@ -120,5 +121,18 @@ export class DashComponent implements OnInit {
           }
         }
       })
+  }
+
+  search(event, search_data){
+    this.search_ = [];
+    this.visitors.forEach(element => {if (element.name.search(search_data.value) == 0) 
+      {this.search_.push(element);
+        }
+      });
+      var sharedData = JSON.stringify(this.search_);
+      sessionStorage.setItem('search_item',sharedData);
+     // var response = JSON.parse(sessionStorage.getItem('search_item'))
+     this.router.navigate(['search']);
+      //console.log(response[0].email);
   }
 }

@@ -15,6 +15,7 @@ var routing_1 = require("./Routing/routing");
 var forms_1 = require("@angular/forms");
 var login_component_1 = require("./components/Login/login.component");
 var register_component_1 = require("./components/Register/register.component");
+var search_component_1 = require("./components/Search/search.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,7 +24,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, router_1.RouterModule.forRoot(routing_1.signupRoutes)],
-        declarations: [app_component_1.AppComponent, dashboard_component_1.DashComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
+        declarations: [app_component_1.AppComponent, dashboard_component_1.DashComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, search_component_1.searchComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

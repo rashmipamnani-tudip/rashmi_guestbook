@@ -107,6 +107,20 @@ var DashComponent = (function () {
             }
         });
     };
+    DashComponent.prototype.search = function (event, search_data) {
+        var _this = this;
+        this.search_ = [];
+        this.visitors.forEach(function (element) {
+            if (element.name.search(search_data.value) == 0) {
+                _this.search_.push(element);
+            }
+        });
+        var sharedData = JSON.stringify(this.search_);
+        sessionStorage.setItem('search_item', sharedData);
+        // var response = JSON.parse(sessionStorage.getItem('search_item'))
+        this.router.navigate(['search']);
+        //console.log(response[0].email);
+    };
     return DashComponent;
 }());
 DashComponent = __decorate([

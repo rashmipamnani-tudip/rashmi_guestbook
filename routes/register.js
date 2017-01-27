@@ -85,10 +85,10 @@ router.post('/login', function(req, res, next) {
             } else {
                 bcrypt.compare(req.body.password, result.pwd, function(err, users) {
                     if (err) {
-                        console.log("Server position wrong");
-                    } else if (!users) {
-                        res.send("wrong password");
-
+                        console.log("Wrong pass 1");
+                        res.send({
+                            "error": "Invalid password"
+                        });
                     } else {
                         console.log("Server position");
                         res.send(result);

@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
       password: mypass.value
     };
 
-    console.log(myuser.password);
-
     result = this.login_service.verifyUser(myuser);
 
 
@@ -42,11 +40,7 @@ export class LoginComponent implements OnInit {
 
       this.users = x;
 
-      console.log(this.users);
-
-
-
-      if (x == null) {
+      if (x.error != null) {
         alert("User not registered or wrong password");
         myemail.value = "";
         mypass.value = "";

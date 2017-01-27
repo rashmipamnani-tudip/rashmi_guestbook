@@ -33,12 +33,10 @@ var LoginComponent = (function () {
             email: myemail.value,
             password: mypass.value
         };
-        console.log(myuser.password);
         result = this.login_service.verifyUser(myuser);
         result.subscribe(function (x) {
             _this.users = x;
-            console.log(_this.users);
-            if (x == null) {
+            if (x.error != null) {
                 alert("User not registered or wrong password");
                 myemail.value = "";
                 mypass.value = "";

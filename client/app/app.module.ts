@@ -8,11 +8,11 @@ import { signupRoutes } from './Routing/routing'
 import { FormsModule,ReactiveFormsModule } from '@angular/forms'
 import { LoginComponent } from './components/Login/login.component'
 import { RegisterComponent } from './components/Register/register.component'
-
+import {searchComponent} from './components/Search/search.component'
 
 @NgModule({
   imports: [BrowserModule, HttpModule,FormsModule,ReactiveFormsModule, RouterModule.forRoot(signupRoutes)],
-  declarations: [AppComponent, DashComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, DashComponent, LoginComponent, RegisterComponent, searchComponent],
   bootstrap: [AppComponent]
 })
 
