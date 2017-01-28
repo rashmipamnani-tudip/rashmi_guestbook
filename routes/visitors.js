@@ -1,32 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://admin:admin@ds117899.mlab.com:17899/mean_guestbook', ['visitors']);
+var error = require('../Helper/helper');
+var path = require('../database/data_path');
+var db = mongojs(path.path, ['visitors']);
 
 // Get visitors
 router.get('/visitors', function(req, res, next) {
     db.visitors.find(function(err, visitors) {
         if (err) {
-            if (res.status(500)) {
-                res.send({
-                    'error': true,
-                    'message': 'INTERNAL SERVER ERROR'
-                });
-            } else if (res.status(400)) {
-                res.send({
-                    'error': true,
-                    'message': 'SESSION EXPIRED'
-                });
-            } else {
-                res.send({
-                    'error': true,
-                    'message': 'Server error occured'
-                });
-            }
-
+            error.error_function(err);
+        }
+        if (!visitors) {
+            res.send({
+                'error': true,
+                'message': error.NOT_FOUND
+            });
         } else {
-            res.json(visitors);
-
+            res.status(200).send({ visitors });
         }
     });
 });
@@ -37,25 +28,15 @@ router.get('/visitor/:id', function(req, res, next) {
         _id: mongojs.ObjectId(req.params.id)
     }, function(err, visitor) {
         if (err) {
-            if (res.status(500)) {
-                res.send({
-                    'error': true,
-                    'message': 'INTERNAL SERVER ERROR'
-                });
-            } else if (res.status(400)) {
-                res.send({
-                    'error': true,
-                    'message': 'SESSION EXPIRED'
-                });
-            } else {
-                res.send({
-                    'error': true,
-                    'message': 'Server error occured'
-                });
-            }
-
+            error.error_function(err);
+        }
+        if (!visitors) {
+            res.send({
+                'error': true,
+                'message': error.NOT_FOUND
+            });
         } else {
-            res.json(visitor);
+            res.status(200).send({ visitor });
         }
     });
 });
@@ -63,29 +44,12 @@ router.get('/visitor/:id', function(req, res, next) {
 // Save visitor
 router.post('/visitor/store', function(req, res, next) {
     var visitor = req.body;
-    console.log("It reached here");
 
     db.visitors.save(visitor, function(err, result) {
         if (err) {
-            if (res.status(500)) {
-                res.send({
-                    'error': true,
-                    'message': 'INTERNAL SERVER ERROR'
-                });
-            } else if (res.status(400)) {
-                res.send({
-                    'error': true,
-                    'message': 'SESSION EXPIRED'
-                });
-            } else {
-                res.send({
-                    'error': true,
-                    'message': 'Server error occured'
-                });
-            }
-
+            error.error_function(err);
         } else {
-            res.json(result);
+            res.status(200).send({ result });
         }
     });
 
@@ -98,24 +62,15 @@ router.delete('/visitors/:id', function(req, res, next) {
         _id: mongojs.ObjectId(req.params.id)
     }, '', function(err, result) {
         if (err) {
-            if (res.status(500)) {
-                res.send({
-                    'error': true,
-                    'message': 'INTERNAL SERVER ERROR'
-                });
-            } else if (res.status(400)) {
-                res.send({
-                    'error': true,
-                    'message': 'SESSION EXPIRED'
-                });
-            } else {
-                res.send({
-                    'error': true,
-                });
-            }
-
+            error.error_function(err);
+        }
+        if (!result) {
+            res.send({
+                'error': true,
+                'message': error.NOT_FOUND
+            });
         } else {
-            res.json(result);
+            res.status(200).send({ result });
         }
     });
 });
@@ -125,35 +80,27 @@ router.post('/visitors', function(req, res, next) {
     if (req.body.role == "Admin") {
         db.visitors.find(function(err, visitors) {
             if (err) {
-                if (res.status(500)) {
-                    res.send({
-                        'error': true,
-                        'message': 'INTERNAL SERVER ERROR'
-                    });
-                    b
-                } else if (res.status(400)) {
-                    res.send({
-                        'error': true,
-                        'message': 'SESSION EXPIRED'
-                    });
-                } else {
-                    res.send({
-                        'error': true,
-                        'message': 'Server error occured'
-                    });
-                }
+                res.status(500).send({
+                    'error': true,
+                    'message': error.INTERNAL_SERVER_ERROR
+                });
+                res.status(!200).send({
+                    'error': true,
+                    'message': error.UNDEFINED
+                });
 
             } else {
-                res.json(visitors);
+                console.log("data");
+                res.status(200).send(visitors);
             }
         });
     } else {
 
         db.visitors.find({ hmail: req.body.hmail }, function(err, visitors) {
             if (err) {
-                res.send(err);
+                error.error_function(err);
             } else {
-                res.json(visitors);
+                res.status(200).send(visitors);
             }
         });
     }

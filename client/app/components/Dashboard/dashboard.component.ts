@@ -24,7 +24,7 @@ export class DashComponent implements OnInit {
 
   ngOnInit() {
 
-    if (sessionStorage.getItem('host_name')==null && sessionStorage.getItem('host_role')==null && sessionStorage.getItem('host_email')==null){
+    if (sessionStorage.getItem('host_name') == null && sessionStorage.getItem('host_role') == null && sessionStorage.getItem('host_email') == null) {
       alert("You need to login to continue");
       this.router.navigate(['']);
     }
@@ -126,6 +126,9 @@ export class DashComponent implements OnInit {
   search(event, search_data) {
     this.search_ = [];
     var str1 = search_data.value.toString().toLowerCase().trim();
+    if(str1.length > 0){
+
+    
     this.visitors.forEach(element => {
       var str2 = element.name.toString().toLowerCase().trim();
 
@@ -134,11 +137,17 @@ export class DashComponent implements OnInit {
         var sharedData = JSON.stringify(this.search_);
         sessionStorage.setItem('search_item', sharedData);
         this.router.navigate(['search']);
-      } else {
-        alert("Not found");
       }
 
     });
+
+    if (this.search_.length == 0) {
+      alert("Visitor Not Found");
+    }
+    }
+    else{
+      alert("Please enter some value...");
+    }
 
   }
   edit_visitor(visitor) {
@@ -174,10 +183,10 @@ export class DashComponent implements OnInit {
     result.subscribe(x => {
 
     });
-var check = {
-  hmail: visitor.hmail,
-   role: this.host_role
-}
+    var check = {
+      hmail: visitor.hmail,
+      role: this.host_role
+    }
     this._dashService.host_visitor(check)
       .subscribe(visitors => {
         this.visitors = visitors;
