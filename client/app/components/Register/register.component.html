@@ -20,6 +20,13 @@
             </div>
             <br>
             <div>
+                <label for="role">Role </label>
+                <select class="form-control" id=" role" #role>
+                    <option> Receptionist </option>
+                    <option> Admin </option>
+                </select>
+            </div>
+            <div>
                 <label for="pwd">Password <sup style="color: red">*</sup></label>
                 <input type="password" class="form-control" id="pwd" formControlName="psword" placeholder="Enter password" #pwd>
             </div>
@@ -32,7 +39,7 @@
             </div>
             <br>
             <br>
-            <button class="btn btn-primary" [disabled]="!registerForm.valid||!checkpass(pwd, cpwd) " (click)="onRegister($event, fname, lname, email, pwd, cpwd) ">Register</button>
+            <button class="btn btn-primary" [disabled]="!registerForm.valid||!checkpass(pwd, cpwd) " (click)="onRegister($event, fname, lname, email, pwd, cpwd, role) ">Register</button>
             <button class="btn btn-primary" [routerLink]="['']">Log in</button>
         </form>
     </div>

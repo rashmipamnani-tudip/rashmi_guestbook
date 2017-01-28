@@ -3,5 +3,6 @@ export class recipts{
     last_name: string;
     email: string;
     pwd: string;
+    role: string;
     //cpwd: string;
 }

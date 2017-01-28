@@ -26,7 +26,7 @@ router.get('/visitors', function(req, res, next) {
 
         } else {
             res.json(visitors);
-            console.log("sending todos");
+
         }
     });
 });
@@ -122,7 +122,7 @@ router.delete('/visitors/:id', function(req, res, next) {
 
 //To display visitors
 router.post('/visitors', function(req, res, next) {
-    if (req.body.hmail == "admin@tudip.com") {
+    if (req.body.role == "Admin") {
         db.visitors.find(function(err, visitors) {
             if (err) {
                 if (res.status(500)) {

@@ -35,7 +35,8 @@ router.post('/register', function(req, res, next) {
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
-            pwd: hash
+            pwd: hash,
+            role: user.role
         }, function(err, result) {
             if (err) {
                 res.send("Error occured. User not registered.");

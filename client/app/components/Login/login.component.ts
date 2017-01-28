@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', Validators.required]
     });
   }
 
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
         //sessionStorage.setItem('',myuser.name);
         sessionStorage.setItem('host_email', myuser.email);
-
+        sessionStorage.setItem('host_role',this.users.role);
         sessionStorage.setItem('host_name', this.users.first_name + " " + this.users.last_name);
         console.log("email is : " + myuser.email);
 

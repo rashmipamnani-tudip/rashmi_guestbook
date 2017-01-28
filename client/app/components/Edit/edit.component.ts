@@ -14,7 +14,9 @@ export class editComponent implements OnInit {
     edit_form: FormGroup;
     get_hmail = sessionStorage.getItem('this_visitor_hmail');
     get_hname = sessionStorage.getItem('this_visitor_rec_name');
+    get_in_date = sessionStorage.getItem('this_visitor_in_time');
     get_in_time = sessionStorage.getItem('this_visitor_in_time');
+    get_out_date = sessionStorage.getItem('this_visitor_out_time');
     get_out_time = sessionStorage.getItem('this_visitor_out_time');
 
 
@@ -43,7 +45,9 @@ export class editComponent implements OnInit {
             name: name.value,
             email: email.value,
             number: number.value,
+            in_date:this.get_in_date,
             in_time: this.get_in_time,
+            out_date: this.get_out_date,
             out_time: this.get_out_time,
             hmail: this.get_hmail,
             receptionist_name: this.get_hname
@@ -59,7 +63,9 @@ export class editComponent implements OnInit {
         sessionStorage.removeItem('this_visitor_name');
         sessionStorage.removeItem('this_visitor_email');
         sessionStorage.removeItem('this_visitor_number');
+        sessionStorage.removeItem('this_visitor_in_date');
         sessionStorage.removeItem('this_visitor_in_time');
+        sessionStorage.removeItem('this_visitor_out_date');
         sessionStorage.removeItem('this_visitor_out_time');
         sessionStorage.removeItem('this_visitor_hmail');
         sessionStorage.removeItem('this_visitor_rec_name');
