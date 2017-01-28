@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
         }
         else {
             return false;
+            
         }
     }
 }

@@ -11,6 +11,8 @@ import { DashService } from '../../services/dash.service'
 })
 export class editComponent implements OnInit {
 
+    
+
     edit_form: FormGroup;
     get_hmail = sessionStorage.getItem('this_visitor_hmail');
     get_hname = sessionStorage.getItem('this_visitor_rec_name');
@@ -24,6 +26,12 @@ export class editComponent implements OnInit {
     }
 
     ngOnInit() {
+
+          if (sessionStorage.getItem('host_name')==null &&  sessionStorage.getItem('host_email')==null){
+      alert("You need to login to continue");
+      this.router.navigate(['']);
+    }
+
         var get_name = sessionStorage.getItem('this_visitor_name');
         var get_email = sessionStorage.getItem('this_visitor_email');
         var get_number = sessionStorage.getItem('this_visitor_number');

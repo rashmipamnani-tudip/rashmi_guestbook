@@ -34,8 +34,7 @@
             <div>
                 <label for="cpwd">Confirm Password <sup style="color: red">*</sup></label>
                 <input type="password" class="form-control" id="cpwd" formControlName="repass" placeholder="Re-enter password" #cpwd>
-                <!--  <small *ngIf="pwd!=cpwd" style=" color: red ">Password don't match </small>-->
-
+                <small *ngIf="!checkpass(pwd, cpwd)" style="color:red"> Passwords do not match</small>
             </div>
             <br>
             <br>

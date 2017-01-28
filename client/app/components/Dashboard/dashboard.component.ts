@@ -174,6 +174,14 @@ export class DashComponent implements OnInit {
     result.subscribe(x => {
 
     });
+var check = {
+  hmail: visitor.hmail,
+   role: this.host_role
+}
+    this._dashService.host_visitor(check)
+      .subscribe(visitors => {
+        this.visitors = visitors;
+      });
 
 
 
