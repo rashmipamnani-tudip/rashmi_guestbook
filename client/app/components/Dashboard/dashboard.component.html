@@ -1,95 +1,80 @@
-<div>
-    <div class="container jumbotron">
+<div class="container jumbotron">
 
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-                    <div class="navbar-brand">WELCOME {{host_name}}
-                        <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
+                <div class="navbar-brand">WELCOME {{host_name}}
 
-                </div>
-            </div>
+                    <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
 
-        </nav>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
-
-
-        <div class="container">
-            <div class="row">
-                <div>
-                    <table>
-                        <tr>
-                            <td><input type="text" placeholder="search" #search_data></td>
-                            <td><input type="button" (click)="search($event, search_data) " class="btn btn-primary btn-block " value="search"></td>
-                        </tr>
-                    </table>
-                </div>
             </div>
         </div>
 
-        <div class="add-todo-form text-center">
-            <h1>Guestlist</h1>
-            <div class="row">
-                <div class="form-group">
+    </nav>
+    <table>
+        <tr>
+            <!-- <td *ngIf="host_role =='Admin'"><input class="form-control input-lg" type="text" placeholder="Search receptionist" #recept></td>
+            <td *ngIf="host_role=='Admin'"><input type="button" class="btn btn-block" (click)="search_rec($event, recept)" class="btn btn-primary btn-block" value="Search receptionist"></td>-->
 
-                    <table>
-                        <form [formGroup]="dashForm">
-                            <tr>
-                                <td><input type="text" class="form-control input-lg" placeholder="Name" formControlName="name" autofocus #name></td>
-                                <td><input type="email" class="form-control input-lg" placeholder="E-mail" formControlName="email" autofocus #email></td>
-                                <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
-                                <!-- <td><input type="time" class="form-control input-lg" placeholder="In-time" formControlName="in_time" autofocus #in></td>
-                                        <td><input type="time" class="form-control input-lg" placeholder="out-time" formControlName="out_time" autofocus #out></td>-->
-                                <td><button [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number)" class="btn btn-primary">Create</button></td>
-                            </tr>
-                        </form>
-                    </table>
-                </div>
-            </div>
-        </div>
+            <td><input type="text" placeholder="search Visitor" class="form-control input-lg" #search_data></td>
+            <td><input type="button" (click)="search($event, search_data) " class="btn btn-lg" value="search"></td>
+        </tr>
+    </table>
 
 
-        <div class="container">
-            <table class=" w3-table ">
+    <div class="text-center">
+        <h1>Guestlist</h1>
+
+
+
+        <table>
+            <form [formGroup]="dashForm">
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Number</th>
-                    <th>In-Date</th>
-                    <th>In-time</th>
-                    <th>Out-date</th>
-                    <th>Out-time</th>
-                    <th>Receptionists' Name</th>
-                    <th>Out</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <td><input type="text" class="form-control input-lg" placeholder="Name" formControlName="name" autofocus #name></td>
+                    <td><input type="email" class="form-control input-lg" placeholder="E-mail" formControlName="email" autofocus #email></td>
+                    <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
+                    <td><button class=" btn btn-lg" [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number)">Create</button></td>
                 </tr>
-                <tr *ngFor="let visitor of visitors ">
-                    <td>{{visitor.name}}</td>
-                    <td>{{visitor.email}}</td>
-                    <td>{{visitor.number}}</td>
-                    <td>{{visitor.in_date}}</td>
-                    <td>{{visitor.in_time}}</td>
-                    <td>{{visitor.out_date}}</td>
-                    <td>{{visitor.out_time}}</td>
-                    <td>{{visitor.receptionist_name}}</td>
-                    <td><button (click)="out(visitor) " class="btn btn-default ">Out</button></td>
-                    <td><button (click)="edit_visitor(visitor) " class="btn btn-default "> Edit</button ></td>
-                            <td><button (click)="delete_visitor(visitor) "class="btn btn-default ">Delete</button></td>
-                </tr>
-            </table>
-        </div>
+            </form>
+        </table>
+
 
     </div>
+
+    <table class=" w3-table  table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Number</th>
+            <th>In-Date</th>
+            <th>In-time</th>
+            <th>Out-date</th>
+            <th>Out-time</th>
+            <th *ngIf="host_role=='Admin'">Receptionists' Name</th>
+            <th>Out</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr *ngFor="let visitor of visitors ">
+            <td>{{visitor.name}}</td>
+            <td>{{visitor.email}}</td>
+            <td>{{visitor.number}}</td>
+            <td>{{visitor.in_date}}</td>
+            <td>{{visitor.in_time}}</td>
+            <td>{{visitor.out_date}}</td>
+            <td>{{visitor.out_time}}</td>
+            <td *ngIf="host_role=='Admin'">{{visitor.receptionist_name}}</td>
+            <td><button (click)="out(visitor) " class="btn btn-default ">Out</button></td>
+            <td><button (click)="edit_visitor(visitor) " class="btn btn-default "> Edit</button ></td>
+                            <td><button (click)="delete_visitor(visitor) "class="btn btn-default ">Delete</button></td>
+        </tr>
+    </table>
+
+
 </div>

@@ -33,7 +33,7 @@ export class DashComponent implements OnInit {
     this.dashForm = this.formbuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-      number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      number: ['', [Validators.required,Validators.pattern("[1-9][0-9]{9}")]],
       //  in_time: ['', Validators.required],
       //out_time: ['', Validators.required],
 
@@ -68,7 +68,7 @@ export class DashComponent implements OnInit {
 
     result = this._dashService.save_visitors(new_visitor);
     result.subscribe(x => {
-      this.visitors.push(new_visitor);
+      this.visitors.unshift(new_visitor);
     });
 
     visitor_name.value = '';
@@ -120,36 +120,74 @@ export class DashComponent implements OnInit {
             }
           }
         }
-      })
+      });
+       var check = {
+      hmail: visitor.hmail,
+      role: this.host_role
+    }
+    this._dashService.host_visitor(check)
+      .subscribe(visitors => {
+        this.visitors = visitors;
+      });
   }
 
   search(event, search_data) {
     this.search_ = [];
     var str1 = search_data.value.toString().toLowerCase().trim();
-    if(str1.length > 0){
+    if (str1.length > 0) {
 
-    
-    this.visitors.forEach(element => {
-      var str2 = element.name.toString().toLowerCase().trim();
 
-      if (str2.search(str1) != -1) {
-        this.search_.push(element);
-        var sharedData = JSON.stringify(this.search_);
-        sessionStorage.setItem('search_item', sharedData);
-        this.router.navigate(['search']);
+      this.visitors.forEach(element => {
+        var str2 = element.name.toString().toLowerCase().trim();
+
+        if (str2.search(str1) != -1) {
+          this.search_.push(element);
+          var sharedData = JSON.stringify(this.search_);
+          sessionStorage.setItem('search_item', sharedData);
+          this.router.navigate(['search']);
+        }
+
+      });
+
+      if (this.search_.length == 0) {
+        alert("Visitor Not Found");
       }
-
-    });
-
-    if (this.search_.length == 0) {
-      alert("Visitor Not Found");
     }
-    }
-    else{
+    else {
       alert("Please enter some value...");
     }
 
+
   }
+
+  search_rec($event, recept_search){
+    this.search_ = [];
+    var str1 = recept_search.value.toString().toLowerCase().trim();
+    if (str1.length > 0) {
+
+
+      this.visitors.forEach(element => {
+        var str2 = element.receptionist_name.toString().toLowerCase().trim();
+
+        if (str2.search(str1) != -1) {
+          this.search_.push(element);
+          var sharedData = JSON.stringify(this.search_);
+          sessionStorage.setItem('search_item', sharedData);
+          this.router.navigate(['search']);
+        }
+
+      });
+
+      if (this.search_.length == 0) {
+        alert("No receptionist by this name");
+      }
+    }
+    else {
+      alert("Please enter some value...");
+    } 
+  }
+
+  
   edit_visitor(visitor) {
 
     sessionStorage.setItem('this_visitor_name', visitor.name);
@@ -181,9 +219,18 @@ export class DashComponent implements OnInit {
     result = this._dashService.update_visitor(out_visitor)
 
     result.subscribe(x => {
-
+      console.log(this.visitors);
+      this.visitors.forEach(element => {
+        if (element.email == visitor.email) {
+          element.out_time = x.out_time;
+        }
+      });
     });
-    var check = {
+
+
+
+
+  var check = {
       hmail: visitor.hmail,
       role: this.host_role
     }
@@ -191,9 +238,6 @@ export class DashComponent implements OnInit {
       .subscribe(visitors => {
         this.visitors = visitors;
       });
-
-
-
   }
 
 }

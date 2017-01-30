@@ -28,8 +28,6 @@ router.post('/register', function(req, res, next) {
                 });
             }
 
-        } else {
-
         }
 
         db.users.save({
@@ -64,7 +62,7 @@ router.post('/login', function(req, res, next) {
                         console.log("Wrong pass 1");
                         res.json("User step 1 not found");
                     } else if (!users) {
-                        res.json("User step 2 not found");
+                        res.json("User not found");
                     } else {
                         //console.log("Server position");
                         res.send(result);

@@ -41,7 +41,7 @@ export class editComponent implements OnInit {
         this.edit_form = this.formbuilder.group({
             name: [get_name, Validators.required],
             email: [get_email, [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-            number: [get_number, Validators.required],
+            number: [get_number, [Validators.required,Validators.pattern("[1-9][0-9]{9}")]],
             in_time: [get_in_time, Validators.required],
             out_time: [get_out_time, Validators.required]
         });

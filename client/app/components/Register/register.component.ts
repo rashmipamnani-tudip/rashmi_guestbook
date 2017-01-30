@@ -19,8 +19,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-      
-
         this.registerForm = this.formBuilder.group({
             firstname: ['', Validators.required],
             lastname: [''],
@@ -67,7 +65,7 @@ export class RegisterComponent implements OnInit {
         }
         else {
             return false;
-            
+
         }
     }
 }
