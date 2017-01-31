@@ -3,6 +3,7 @@ import { DashService } from '../../services/dash.service';
 import { visitors } from './visitor';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router, RouterModule } from '@angular/router'
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Component({
   moduleId: module.id,
@@ -12,6 +13,8 @@ import { Router, RouterModule } from '@angular/router'
 })
 
 export class DashComponent implements OnInit {
+  
+
   visitors: visitors[];
   search_: visitors[];
   dashForm: FormGroup;
@@ -31,11 +34,10 @@ export class DashComponent implements OnInit {
 
 
     this.dashForm = this.formbuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z\s]+$")]],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-      number: ['', [Validators.required,Validators.pattern("[1-9][0-9]{9}")]],
-      //  in_time: ['', Validators.required],
-      //out_time: ['', Validators.required],
+      number: ['', [Validators.required, Validators.pattern("[1-9][0-9]{9}")]],
+
 
     });
 
@@ -53,27 +55,45 @@ export class DashComponent implements OnInit {
   }
 
   add_visitor(event, visitor_name, visitor_email, visitor_number) {
-    var result;
-    var new_visitor = {
-      name: visitor_name.value,
-      email: visitor_email.value,
-      number: visitor_number.value,
-      in_date: new Date().getDate() + "-" + new Date().getMonth() + 1 + "-" + new Date().getFullYear(),
-      in_time: new Date().toTimeString().split(" ")[0],
-      out_date: "",
-      out_time: "",
-      hmail: this.e_mail,
-      receptionist_name: this.host_name
-    };
+    var input = document.getElementById("toast");
+    if (visitor_name.value == '' || visitor_number.value == '' || visitor_email == '') {
+      input.className = "show";
+      input.innerHTML = "Some required fields are not filled";
+      input.style.background = "#ff1a1a";
+      setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
+    } else if (!this.dashForm.valid) {
+      input.className = "show";
+      input.innerHTML = "Enter Valid data";
+      input.style.background = "#ff1a1a";
+      setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
+    } else {
+      var result;
+      var new_visitor = {
+        name: visitor_name.value,
+        email: visitor_email.value,
+        number: visitor_number.value,
+        in_date: new Date().getDate() + "-" + new Date().getMonth() + 1 + "-" + new Date().getFullYear(),
+        in_time: new Date().toTimeString().split(" ")[0],
+        out_date: "",
+        out_time: "",
+        hmail: this.e_mail,
+        receptionist_name: this.host_name
+      };
 
-    result = this._dashService.save_visitors(new_visitor);
-    result.subscribe(x => {
-      this.visitors.unshift(new_visitor);
-    });
+      result = this._dashService.save_visitors(new_visitor);
+      result.subscribe(x => {
+        this.visitors.unshift(new_visitor);
+      });
+      input.className = "show";
+      input.innerHTML = "Data added";
+      input.style.background = "#1add1a";
+      setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
 
-    visitor_name.value = '';
-    visitor_email.value = '';
-    visitor_number.value = '';
+      visitor_name.value = '';
+      visitor_email.value = '';
+      visitor_number.value = '';
+    }
+
   }
 
   logout() {
@@ -82,16 +102,6 @@ export class DashComponent implements OnInit {
     sessionStorage.removeItem('host_email');
     sessionStorage.removeItem('host_role');
     sessionStorage.removeItem('host_name');
-
-    var host_email = sessionStorage.getItem('host_name');
-    var host_role = sessionStorage.getItem('host_role');
-    var host_name = sessionStorage.getItem('host_email');
-
-    console.log(host_email);
-    console.log(host_role);
-    console.log(host_name);
-
-
 
 
     sessionStorage.removeItem('this_visitor_name');
@@ -104,34 +114,44 @@ export class DashComponent implements OnInit {
     sessionStorage.removeItem('this_visitor_hmail');
     sessionStorage.removeItem('this_visitor_rec_name');
     this.router.navigate(['']);
-    alert(" THANK YOU");
+
 
   }
 
   delete_visitor(visitor) {
+    var input = document.getElementById("toast");
     var visitors = this.visitors;
-
-    this._dashService.delete_visitor(visitor._id)
-      .subscribe(data => {
-        if (data.n == 1) {
-          for (var i = 0; i < visitors.length; i++) {
-            if (visitors[i]._id == visitor._id) {
-              visitors.splice(i, 1);
+    var data = confirm("Visitor will be deleted. Do you want to continue?")
+    if (data == true) {
+      this._dashService.delete_visitor(visitor._id)
+        .subscribe(data => {
+          if (data.n == 1) {
+            for (var i = 0; i < visitors.length; i++) {
+              if (visitors[i]._id == visitor._id) {
+                visitors.splice(i, 1);
+              }
             }
           }
-        }
-      });
-       var check = {
-      hmail: visitor.hmail,
-      role: this.host_role
+        });
+
+      var check = {
+        hmail: visitor.hmail,
+        role: this.host_role
+      }
+      this._dashService.host_visitor(check)
+        .subscribe(visitors => {
+          this.visitors = visitors;
+        });
+      input.className = "show";
+      input.innerHTML = "Visitor deleted successfully";
+      input.style.background = "#1add1a";
+      setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
+
     }
-    this._dashService.host_visitor(check)
-      .subscribe(visitors => {
-        this.visitors = visitors;
-      });
   }
 
   search(event, search_data) {
+    var input = document.getElementById("toast");
     this.search_ = [];
     var str1 = search_data.value.toString().toLowerCase().trim();
     if (str1.length > 0) {
@@ -150,44 +170,23 @@ export class DashComponent implements OnInit {
       });
 
       if (this.search_.length == 0) {
-        alert("Visitor Not Found");
+        input.className = "show";
+        input.innerHTML = "No visitor found";
+        input.style.background = "#ff1a1a";
+        setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
       }
     }
     else {
-      alert("Please enter some value...");
+      input.className = "show";
+      input.innerHTML = "Please enter some data";
+      input.style.background = "#ff1a1a";
+      setTimeout(function () { input.className = input.className.replace("show", ""); }, 3000);
     }
 
 
   }
 
-  search_rec($event, recept_search){
-    this.search_ = [];
-    var str1 = recept_search.value.toString().toLowerCase().trim();
-    if (str1.length > 0) {
 
-
-      this.visitors.forEach(element => {
-        var str2 = element.receptionist_name.toString().toLowerCase().trim();
-
-        if (str2.search(str1) != -1) {
-          this.search_.push(element);
-          var sharedData = JSON.stringify(this.search_);
-          sessionStorage.setItem('search_item', sharedData);
-          this.router.navigate(['search']);
-        }
-
-      });
-
-      if (this.search_.length == 0) {
-        alert("No receptionist by this name");
-      }
-    }
-    else {
-      alert("Please enter some value...");
-    } 
-  }
-
-  
   edit_visitor(visitor) {
 
     sessionStorage.setItem('this_visitor_name', visitor.name);
@@ -230,7 +229,7 @@ export class DashComponent implements OnInit {
 
 
 
-  var check = {
+    var check = {
       hmail: visitor.hmail,
       role: this.host_role
     }

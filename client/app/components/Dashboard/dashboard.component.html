@@ -1,22 +1,26 @@
 <div class="container jumbotron">
 
     <nav class="navbar navbar-inverse">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <a class="navbar-brand">WELCOME {{host_name}}</a>
+            </div>
+            <div class="nav navbar-nav">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-                <div class="navbar-brand">WELCOME {{host_name}}
-
-                    <input type="button" (click)="logout()" class="btn btn-default pull-right" value="Log Out"> </div>
-
             </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><input type="button" (click)="logout()" class="btn navbar-btn btn-grey" value="Log Out"></li>
+            </ul>
         </div>
 
     </nav>
+
     <table>
         <tr>
             <!-- <td *ngIf="host_role =='Admin'"><input class="form-control input-lg" type="text" placeholder="Search receptionist" #recept></td>
@@ -31,7 +35,7 @@
     <div class="text-center">
         <h1>Guestlist</h1>
 
-
+        <div id="toast"></div>
 
         <table>
             <form [formGroup]="dashForm">
@@ -39,7 +43,7 @@
                     <td><input type="text" class="form-control input-lg" placeholder="Name" formControlName="name" autofocus #name></td>
                     <td><input type="email" class="form-control input-lg" placeholder="E-mail" formControlName="email" autofocus #email></td>
                     <td><input type="number" class="form-control input-lg" ng-minlength="10" ng-maxlength="10" placeholder="Mobile number" formControlName="number" ng-required="true" autofocus #number></td>
-                    <td><button class=" btn btn-lg" [disabled]="!dashForm.valid" (click)=" add_visitor($event, name, email, number)">Create</button></td>
+                    <td><button class=" btn btn-lg" (click)=" add_visitor($event, name, email, number)">Create</button></td>
                 </tr>
             </form>
         </table>
@@ -61,7 +65,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr *ngFor="let visitor of visitors ">
+        <tr *ngFor="let visitor of visitors">
             <td>{{visitor.name}}</td>
             <td>{{visitor.email}}</td>
             <td>{{visitor.number}}</td>
