@@ -51,21 +51,37 @@
 
     </div>
 
-    <table class=" w3-table  table-striped">
+    <table class=" w3-table  table-striped" [mfData]="data" #mf="mfDataTable">
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Number</th>
-            <th>In-Date</th>
-            <th>In-time</th>
-            <th>Out-date</th>
-            <th>Out-time</th>
-            <th *ngIf="host_role=='Admin'">Receptionists' Name</th>
+            <th>
+                <mfDefaultSorter by="name">Name</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="email">Email</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="number">Number</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="in_date">In Date</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="in_time">In Time</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="out_date">Out Date</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="out_time">out Time</mfDefaultSorter>
+            </th>
+            <th *ngIf="host_role=='Admin'">
+                <mfDefaultSorter by="receptionist_name">Receptionists' name</mfDefaultSorter>
+            </th>
             <th>Out</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr *ngFor="let visitor of visitors">
+        <tr *ngFor="let visitor of mf.data">
             <td>{{visitor.name}}</td>
             <td>{{visitor.email}}</td>
             <td>{{visitor.number}}</td>
@@ -76,7 +92,7 @@
             <td *ngIf="host_role=='Admin'">{{visitor.receptionist_name}}</td>
             <td><button (click)="out(visitor) " class="btn btn-default ">Out</button></td>
             <td><button (click)="edit_visitor(visitor) " class="btn btn-default "> Edit</button ></td>
-                            <td><button (click)="delete_visitor(visitor) "class="btn btn-default ">Delete</button></td>
+            <td><button (click)="delete_visitor(visitor) "class="btn btn-default ">Delete</button></td>
         </tr>
     </table>
 

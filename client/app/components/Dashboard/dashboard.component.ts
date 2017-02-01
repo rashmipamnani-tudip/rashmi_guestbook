@@ -13,7 +13,11 @@ import { Pipe, PipeTransform } from '@angular/core'
 })
 
 export class DashComponent implements OnInit {
-  
+  public data : any[];
+ // public filterQuery = "";
+ // public rowsOnPage = 12;
+  //public sortBy = "email";
+  //public sortOrder = "asc";
 
   visitors: visitors[];
   search_: visitors[];
@@ -50,6 +54,7 @@ export class DashComponent implements OnInit {
     this._dashService.host_visitor(check)
       .subscribe(visitors => {
         this.visitors = visitors;
+        this.data = visitors;
       });
 
   }

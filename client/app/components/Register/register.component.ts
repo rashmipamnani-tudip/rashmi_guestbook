@@ -75,6 +75,7 @@ export class RegisterComponent implements OnInit {
         }
 
     }
+}
 
    /* checkpass(pwd, cpwd) {
 

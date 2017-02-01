@@ -46,13 +46,11 @@ export class LoginComponent implements OnInit {
       };
 
       result = this.login_service.verifyUser(myuser);
-
-
-      result.subscribe(x => {
+         result.subscribe(x => {
 
         this.users = x;
 
-        // console.log("Ans is : ",this.users);
+       console.log("Ans is : ",this.users);
 
         if (x.toString() == "User not found") {
           input.className = "show";
